@@ -1,43 +1,61 @@
 
 /***************recupérer dynamiquement les donnés du server **************/
-//const gallery = document.querySelector(".gallery");
-//const image = document.querySelectorAll("img");
+
+    fetch("http://localhost:5678/api/works")
+        .then(res => res.json())
+        .then(function(element){
+            document.querySelector(".gallery").innerHTML = '';
+            for(let i in element){
+                let url = element[i].imageUrl;
+                let title = element[i].title;
+                document.querySelector(".gallery").innerHTML +=
+                        `<figure>
+                                <img crossorigin="anonymous" src=${url} alt="${title}}">
+                                <figcaption>${title}</figcaption>
+                        </figure>` }
+            }) 
+    
+        .catch(function(erreur){
+            console.log(erreur);
+        })
 
 
-// mettre en téte methode / content /header body.... ?????
+
+
+
+/*
+const data = fetch("http://localhost:5678/api/works")
+                .then(data => data.json());
+*/
+
+ /*               
+const dataArray = [];
+
+const gallery = document.querySelector(".gallery");
+const projet = document.createElement(`figure`);
+        gallery.appendChild(projet);
+       
+const imageElement = document.createElement("img");
+    projet.appendChild(imageElement);
+const nomElement = document.createElement("figcaption");
+    projet.appendChild(nomElement);
+
+    imageElement.src = (dataArray.imageUrl);
+    nomElement.innerText = (dataArray.titre);
+      
+*/
+
+
+/*
 const data = fetch("http://localhost:5678/api/works")
     .then(function(res){
         if (res.ok){
             return res.json()
         }
-      else {
-          console.log('erreur lors du chargement')}
-        });
- 
-
-
-//  .document.prompt("erreur est survenue"))
-/*const gallery = document.querySelector(".gallery");
-gallery.innerHTML = "data";*/
-
-//const dataGalery = document.querySelector('.gallery');
-
-//let newData = document.createElement(div);
-
-  /*  .createlement */
-
-  /* tableau que l'on recupére du server par fetch
-  [
-    {
-      "id": 1,
-      "title": "Abajour Tahina",
-      "imageUrl": "http://localhost:5678/images/abajour-tahina1651286843956.png",
-      "categoryId": 1,
-      "userId": 1,
-      "category": {
-        "id": 1,
-        "name": "Objets"
-      }
-    }
-  ]
-  */
+        else {
+            console.log('erreur lors du chargement')}
+    then(function(value){
+        res.json = value
+        })
+    });
+*/ 

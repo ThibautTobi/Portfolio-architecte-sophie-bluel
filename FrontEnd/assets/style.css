@@ -211,7 +211,9 @@ footer nav ul {
 }
 
 /******************************** page de connection ********************************/
-
+.back_color{
+	background-color: #E5E5E5;
+}
 .form_connection{
 	display: flex;
 	flex-direction: column;
@@ -247,4 +249,8 @@ margin-top: 37px;
 }
 .réinitialiser{
 	text-decoration:underline;
+}
+.footer_page_connection{
+	height: 60px;
+	background-color: white;
 }

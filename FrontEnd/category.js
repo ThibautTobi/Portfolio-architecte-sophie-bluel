@@ -26,51 +26,21 @@
     buttonHotels.className = "btn";
 
 
-/*const titreProjet = document.querySelector(".titre_projet");
-const newUl = document.createElement("ul");
-
-const filte = document.createElement("li");
-document.querySelector("li");
-const btnTous = document.createElement("button").innerHTML("Tous");
-*/
-//const objetsLi = document.createElement("li");
-//const appartementsLi = document.createElement("li");
-//const hotelsLi = document.createElement("li");
-//titreProjet.appendChild("tousLi");
-
-
-/*
+    
 fetch("http://localhost:5678/api/categories")
 .then(res => res.json())
 .then(function(category){
-    for ( let i in category){
-        let idObjets = category[i].name;
-        let idAppartements = category[i].name;
-        let idHotels = category[i].name;
+   for ( let el in category)
+   console.log(el)
+  {
+    const elEntries = object.entries(el)
+   // let id = new Set (el)
+        console.log(elEntries);
+        
+        //let idObjets = category[i].name;
+        //let idAppartements = category[i].name;
+        //let idHotels = category[i].name;
 
     }
 })
-*/
 
-
-/*
-const boutonTous = document.querySelector("");
-boutonTous.addEventListener(click,function(event){
-
-});
-
-const boutonObjets = document.querySelector("");
-boutonObjets.addEventListener(click,function(event){
-
-});
-
-const boutonAppartements = document.querySelector("");
-boutonAppartements.addEventListener(click,function(event){
-
-});
-
-const boutonHotels = document.querySelector("");
-boutonHotels.addEventListener(click,function(event){
-
-});
-*/

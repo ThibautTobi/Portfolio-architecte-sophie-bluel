@@ -1,7 +1,30 @@
 
 /***************recupérer dynamiquement les donnés du server **************/
 
-    fetch("http://localhost:5678/api/works")
+ // je récupére les donnés des projets du serveur et enregistre dans const projets
+
+const reponseProjet = await fetch("http://localhost:5678/api/works");
+const projets = await reponseProjet.json();
+
+// je fais disparaitre le contenue des projets
+document.querySelector(".gallery").innerHTML = '';
+
+// je créé une boucle pour incrémenter tous les projets
+for(let i in projets){
+    let url = projets[i].imageUrl;
+    let title = projets[i].title;
+
+    document.querySelector(".gallery").innerHTML +=
+        `<figure>
+            <img crossorigin="anonymous" src=${url} alt="${title}}">
+            <figcaption>${title}</figcaption>
+        </figure>` 
+};
+        
+/*
+// solution alternative sans récupéré dans une constante
+
+fetch("http://localhost:5678/api/works")
         .then(res => res.json())
         .then(function(element){
             document.querySelector(".gallery").innerHTML = '';
@@ -12,50 +35,12 @@
                         `<figure>
                                 <img crossorigin="anonymous" src=${url} alt="${title}}">
                                 <figcaption>${title}</figcaption>
-                        </figure>` }
-            }) 
-    
+                        </figure>` 
+                        }
+            })
+
         .catch(function(erreur){
             console.log(erreur);
         })
-
-
-
-
-
-/*
-const data = fetch("http://localhost:5678/api/works")
-                .then(data => data.json());
-*/
-
- /*               
-const dataArray = [];
-
-const gallery = document.querySelector(".gallery");
-const projet = document.createElement(`figure`);
-        gallery.appendChild(projet);
-       
-const imageElement = document.createElement("img");
-    projet.appendChild(imageElement);
-const nomElement = document.createElement("figcaption");
-    projet.appendChild(nomElement);
-
-    imageElement.src = (dataArray.imageUrl);
-    nomElement.innerText = (dataArray.titre);
-      
-*/
-
-
-/*
-const data = fetch("http://localhost:5678/api/works")
-    .then(function(res){
-        if (res.ok){
-            return res.json()
-        }
-        else {
-            console.log('erreur lors du chargement')}
-    then(function(value){
-        res.json = value
-        })
-    });
-*/ 
+  */     
+        //console.log(element)

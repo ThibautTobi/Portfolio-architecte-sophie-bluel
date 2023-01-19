@@ -130,7 +130,7 @@ li:hover {
 	margin-bottom: 1em;
 }
 /************************ bouton filtre intégré en javascript ******************************/
-.btn,.btn_connection{
+.btn-tous, .btn-objets, .btn-appart, .btn-hotels,.btn_connection{
 	width: auto;
 	height: 37px;
 	color: #1D6154;
@@ -145,7 +145,7 @@ li:hover {
 	margin: 50px 10px 40px 10px;
 	padding: 10px;
 }
-.btn:hover,.btn_connection{
+.btn-tous:hover, .btn-objets:hover, .btn-appart:hover, .btn-hotels:hover,.btn_connection{
 	background-color: #1D6154;
 	color:white;
 }
@@ -254,4 +254,8 @@ margin-top: 37px;
 .footer_page_connection{
 	height: 60px;
 	background-color: white;
+}
+
+.class-1,.class-2,.class-3{
+	display: block;
 }

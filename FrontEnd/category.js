@@ -10,65 +10,179 @@
     const buttonTous = document.createElement("button");
     newDiv.appendChild(buttonTous);
     buttonTous.innerHTML = "Tous";
-    buttonTous.className = "btn";
-    let btnTous = null;
+    buttonTous.className = "btn-tous";
+    buttonTous.setAttribute("value",0)
 
     const buttonObjets = document.createElement("button");
     newDiv.appendChild(buttonObjets);
     buttonObjets.innerHTML = "Ojets";
-    buttonObjets.className = "btn";
-    let btnObjets = null;
+    buttonObjets.className = "btn-objets";
+    buttonObjets.setAttribute("value",1)
 
     const buttonAppart = document.createElement("button");
     newDiv.appendChild(buttonAppart);
     buttonAppart.innerHTML = "Appartements";
-    buttonAppart.className = "btn";
-    let btnAppart = null;
+    buttonAppart.className = "btn-appart";
+    buttonAppart.setAttribute("value",2)
 
     const buttonHotels = document.createElement("button");
     newDiv.appendChild(buttonHotels);
     buttonHotels.innerHTML = "Hotels & restaurants";
-    buttonHotels.className = "btn";
-    let btnHotels = null;
-
+    buttonHotels.className = "btn-hotels";
+    buttonHotels.setAttribute("value",3)
+    
 //je récupére les donnés categories du serveur et enregistre dans const categories
 
 const reponseCategories = await fetch("http://localhost:5678/api/categories");
-const categories = await  reponseCategories.json();
+const categories = await  reponseCategories.json(); 
+
+const reponseProjet = await fetch("http://localhost:5678/api/works");
+const projets = await reponseProjet.json();
+
+// je récupére les node list
+
+let class1 = document.querySelectorAll(".class-1")
+let class2 = document.querySelectorAll(".class-2")
+let class3 = document.querySelectorAll(".class-3")
+
+
+// je récupére les value de mes boutons
+
+let valueTous = buttonTous.value
+let valueObjet = buttonObjets.value
+let valueAppart = buttonAppart.value
+let valueHotel = buttonHotels.value
+
+// click filtre bouton 
+
+buttonTous.addEventListener('click', function (e) {
+    e.preventDefault();
+        for(let i in projets){
+        let  listCat = projets[i].categoryId
+            if (listCat == valueTous){
+                console.log("cool")
+                class1[0].style.display="block"
+             
+            }
+            else{
+                console.log("pas cool")
+
+            }}
+});
+
+buttonObjets.addEventListener('click', function (e) {
+    e.preventDefault();
+    //console.log(projets)
+    //console.log(categories)
+    //console.log(buttonObjets.value)
+    //document.querySelector(".gallery").innerHTML = "" ;
+
+        for(let i in projets){
+        let  listCat = projets[i].categoryId
+        console.log(listCat)
+
+            if (listCat == valueObjet){
+                console.log("cool")
+               //document.querySelectorAll(".class-1").style.display ="block";
+               class1[0].style.display="block";
+               class1[1].style.display="block";               
+            }
+            else{
+                console.log("pas cool")
+                class2[0].style.display="none";
+                class2[1].style.display="none";
+                class2[2].style.display="none";
+                class2[3].style.display="none";
+                class2[4].style.display="none";
+                class2[5].style.display="none";
+
+                class3[0].style.display="none";
+                class3[1].style.display="none";
+                class3[2].style.display="none";         
+                //document.querySelectorAll("."+ listCat).style.display = "none"; 
+            }}
+});
+
+buttonAppart.addEventListener('click', function (e) {
+    e.preventDefault();
+        for(let i in projets){
+        let  listCat = projets[i].categoryId
+        console.log(listCat)
+
+            if (listCat == valueAppart){
+                console.log("cool")
+               class1[0].style.display="block";
+               class1[1].style.display="block";               
+            }
+            else{
+                console.log("pas cool")
+                class2[0].style.display="none";
+                class2[1].style.display="none";
+                class2[2].style.display="none";
+                class2[3].style.display="none";
+                class2[4].style.display="none";
+                class2[5].style.display="none";
+
+                class3[0].style.display="none";
+                class3[1].style.display="none";
+                class3[2].style.display="none";         
+            }}
+});
+
+buttonHotels.addEventListener('click', function (e) {
+    e.preventDefault();
+        for(let i in projets){
+        let  listCat = projets[i].categoryId
+        console.log(listCat)
+            if (listCat == valueHotel){
+                console.log("cool")
+               class1[0].style.display="block";
+               class1[1].style.display="block";               
+            }
+            else{
+                console.log("pas cool")
+                class2[0].style.display="none";
+                class2[1].style.display="none";
+                class2[2].style.display="none";
+                class2[3].style.display="none";
+                class2[4].style.display="none";
+                class2[5].style.display="none";
+
+                class3[0].style.display="none";
+                class3[1].style.display="none";
+                class3[2].style.display="none";         
+                //document.querySelectorAll("."+ listCat).style.display = "none"; 
+            }}
+});
+//  .removeClass('displayNone')     .addClass('filtre-...')  button.classList.add("active")
 
 // je créé un évènement a chaque bouton
-document.querySelectorAll("button")
-    .addEventListener("click",(e){
-    
-    e.stopPropagation()
-    console.log(click)
-    });
 
-function eventCategory (projets){
-    for (let i in projets){
-        if (i.idCategory === categories){
+/*
+buttonObjets.addEventListener('click', function (event) {
+    event.preventDefault();
+    document.getElementsByClassName('.2').innerHTML = "";
+    for (let i in projets)
+    {
+        projets[i].categoryId
 
+        if( projets[i].categoryId === 1)
+        {
+            console.log(projets[i].categoryId)
+            document.querySelector('.2').innerHTML= "";
+            document.getElementsByClassName('.3').innerHTML = "";
 
-            //console.log()
-        } else if {
+            //document.getElementsByClassName(".2").innerHTML = "";
 
-
-            //console.log()
-        } else if{
-
-
-            //console.log()
+        //document.querySelector(".gallery").innerHTML = ""     // ceci marche ! //
+        
         }
-        return projets
-   //console.log()
-    }
-}
-
-
-//console.log()
-
+       }
+});
+*/
 
 // je créé une boucle pour récupéré a l'intérieur de categories et assigne des valeurs au bouton
+
 /*
 for (let i in categories){
     let btnTous = i;
@@ -81,109 +195,17 @@ for (let i in categories){
     console.log(btnHotels)
 } 
 */
+
+
 //j'élimine les doublons avec l'objet Set
-//const monSet = new Set();
 
-    
-   
+//const monSet = newSet();
+// let newSetProjet = projets
+// console.log(newSetProjet)
 
-
-
- /*   
-const = filtreTous = el.filter(function (category)){
-    return category.category;
-    console.log(el);
-    console.log(category);
-    
-}
-})
-
-buttonObjets.addEventListener("click",function(){
-
-})
-
-buttonAppart.addEventListener("click",function(){
-
-})
-
-buttonHotels.addEventListener("click",function(){
-
-})
-*/
-
-
-// si je clic sur le bouton objets je souhaite garder les éléments de l'id objets
-
-//buttonObjets.addEventListener("click",function(event){
-    //event.preventDefault();
-        
-  /*  for(let i in element){
-        document.querySelector(".gallery");
-        let elId = element[i].id;
-        document.querySelector(".gallery").innerHTML += ;
-        
-    }
-        
-      //  document.innerHtml = ""
-       // console.log(category)
-    });*/
-  //  console.log(buttonTous)
-  //  console.log(btnTous)
-
-//});   ici///////////
-
-//   for ( let i in category && element){ document.querySelector(".gallery").innerHTML += ;
-
-
-
-
-
-
-
-
-
-/* 
- function clic(btn) associé .value
-
- return innerHtml = ""  les objets a l'id ou le non de la category
-*/
-
-//  monSet.add(el)
-//  monSet.values()
-/*
-        let id = category[i].id;
-        let name = category[i].name;
-    
-        btnTous = 
-        console.log(id)
-        console.log(name)
-    */    
-       // console.log()
-
-   // const elEntries = object.entries(el)
 
    // let id = new Set (el)
-       // console.log(elEntries);
-        
+       // console.log(elEntries); 
         //let idObjets = category[i].name;
         //let idAppartements = category[i].name;
         //let idHotels = category[i].name;
-
-
-
-
-//const filtrage = new Set ([...el].filter(el.name => set2.has(name)));
-// console.log(filtrage);
-
-
-
-/*
-recupéré 
-let data = null;   
-fetch("http://localhost:5678/api/categories")
-.then(res => res.json())
-.then(category => 
-   {
-    data = category
-   });
-*/

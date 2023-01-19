@@ -10,17 +10,25 @@ const projets = await reponseProjet.json();
 document.querySelector(".gallery").innerHTML = '';
 
 // je créé une boucle pour incrémenter tous les projets
+ 
 for(let i in projets){
     let url = projets[i].imageUrl;
     let title = projets[i].title;
-
+    let id = projets[i].categoryId;              
     document.querySelector(".gallery").innerHTML +=
-        `<figure>
-            <img crossorigin="anonymous" src=${url} alt="${title}}">
-            <figcaption>${title}</figcaption>
-        </figure>` 
+    
+        `<div class=class-${id}>
+            <figure>
+                <img crossorigin="anonymous"  src=${url} alt="${title}}">
+                <figcaption>${title}</figcaption>
+            </figure>
+        </div>` 
 };
-        
+
+// verifier si local storage et si valid faire apparaitre et disparaitre
+// json.parse
+//if()
+
 /*
 // solution alternative sans récupéré dans une constante
 

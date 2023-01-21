@@ -29,26 +29,4 @@ for(let i in projets){
 // json.parse
 //if()
 
-/*
-// solution alternative sans récupéré dans une constante
 
-fetch("http://localhost:5678/api/works")
-        .then(res => res.json())
-        .then(function(element){
-            document.querySelector(".gallery").innerHTML = '';
-            for(let i in element){
-                let url = element[i].imageUrl;
-                let title = element[i].title;
-                document.querySelector(".gallery").innerHTML +=
-                        `<figure>
-                                <img crossorigin="anonymous" src=${url} alt="${title}}">
-                                <figcaption>${title}</figcaption>
-                        </figure>` 
-                        }
-            })
-
-        .catch(function(erreur){
-            console.log(erreur);
-        })
-  */     
-        //console.log(element)

@@ -29,13 +29,14 @@ document.getElementById("form_connection");
             .then(logAdmin =>{ 
 
         // associer le token et rediriger vers la page d'acceuil en mode administrateur
-
+        // http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/
         
             localStorage.setItem("user",JSON.stringify(logAdmin))
 
          
-
-         console.log("sa marche")}
+console.log(logAdmin)
+         console.log("sa marche")
+        }
          )}
          
         

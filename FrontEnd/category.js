@@ -37,14 +37,12 @@ const reponseCategories = await fetch("http://localhost:5678/api/categories");
 const categories = await  reponseCategories.json(); 
 
 const reponseProjet = await fetch("http://localhost:5678/api/works");
-const projets = await reponseProjet.json();
+const projet = await reponseProjet.json();
 
+//j'élimine les doublons avec l'objet Set aprés avoir récupéré les projets.
+const projetSet = new Set(projet)
+const projets = Array.from(projetSet)
 
-//
-//
-// ici mettre un set sur le retour de mon api de mes projets pour filtrer si des doublons sont enregistrer ?
-//
-//
 
 // je récupére les node list
 
@@ -67,49 +65,31 @@ buttonTous.addEventListener('click', function (e) {
         let  listCat = projets[i].categoryId
 
             if (listCat !== valueTous){
-                console.log("cool")
                 for( let i = 0 ; i < class1.length ; i++){
                     class1[i].style.display ="block";}
                 for( let i = 0 ; i < class2.length ; i++){
                     class2[i].style.display ="block";}
                 for( let i = 0 ; i < class3.length ; i++){
-                class3[i].style.display ="block";
-                }}
-            else{
-                console.log("pas cool")
-            }}
+                    class3[i].style.display ="block";
+                }}}
+
 });
 
 buttonObjets.addEventListener('click', function (e) {
     e.preventDefault();
-    //console.log(projets)
-    //console.log(categories)
-    //console.log(buttonObjets.value)
-    //document.querySelector(".gallery").innerHTML = "" ;
-
         for(let i in projets){
         let  listCat = projets[i].categoryId
-        console.log(listCat)
 
             if (listCat == valueObjet){
-                console.log("cool")
-               //document.querySelectorAll(".class-1").style.display ="block";
-               class1[0].style.display="block";
-               class1[1].style.display="block";               
+                for( let i = 0 ; i < class1.length ; i++){
+                    class1[i].style.display ="block";}               
             }
             else{
-                console.log("pas cool")
-                class2[0].style.display="none";
-                class2[1].style.display="none";
-                class2[2].style.display="none";
-                class2[3].style.display="none";
-                class2[4].style.display="none";
-                class2[5].style.display="none";
-
-                class3[0].style.display="none";
-                class3[1].style.display="none";
-                class3[2].style.display="none";         
-                //document.querySelectorAll("."+ listCat).style.display = "none"; 
+                for( let i = 0 ; i < class2.length ; i++){
+                    class2[i].style.display ="none";}
+                for( let i = 0 ; i < class3.length ; i++){
+                    class3[i].style.display ="none";
+                }
             }}
 });
 
@@ -117,25 +97,17 @@ buttonAppart.addEventListener('click', function (e) {
     e.preventDefault();
         for(let i in projets){
         let  listCat = projets[i].categoryId
-        console.log(listCat)
 
             if (listCat == valueAppart){
-                console.log("cool")
-               class1.style.display="block";
-               class1[1].style.display="block";               
+                for( let i = 0 ; i < class2.length ; i++){
+                    class2[i].style.display ="block";}            
             }
             else{
-                console.log("pas cool")
-                class2[0].style.display="none";
-                class2[1].style.display="none";
-                class2[2].style.display="none";
-                class2[3].style.display="none";
-                class2[4].style.display="none";
-                class2[5].style.display="none";
-
-                class3[0].style.display="none";
-                class3[1].style.display="none";
-                class3[2].style.display="none";         
+                for( let i = 0 ; i < class1.length ; i++){
+                    class1[i].style.display ="none";}
+                for( let i = 0 ; i < class3.length ; i++){
+                class3[i].style.display ="none";
+                }        
             }}
 });
 
@@ -143,32 +115,17 @@ buttonHotels.addEventListener('click', function (e) {
     e.preventDefault();
         for(let i in projets){
         let  listCat = projets[i].categoryId
-        console.log(listCat)
+    
             if (listCat == valueHotel){
-                console.log("cool")
-               class1[0].style.display="block";
-               class1[1].style.display="block";               
-            }
+                for( let i = 0 ; i < class3.length ; i++){
+                class3[i].style.display ="block";
+            }}
             else{
-                console.log("pas cool")
-                class2[0].style.display="none";
-                class2[1].style.display="none";
-                class2[2].style.display="none";
-                class2[3].style.display="none";
-                class2[4].style.display="none";
-                class2[5].style.display="none";
-
-                class3[0].style.display="none";
-                class3[1].style.display="none";
-                class3[2].style.display="none";          
+                for( let i = 0 ; i < class1.length ; i++){
+                    class1[i].style.display ="none";}
+                for( let i = 0 ; i < class2.length ; i++){
+                    class2[i].style.display ="none";
+                }         
             }}
 });
-//  .removeClass('displayNone')     .addClass('filtre-...')  button.classList.add("active")
 
-
-
-//j'élimine les doublons avec l'objet Set
-
-//const monSet = newSet();
-
-// console.log()

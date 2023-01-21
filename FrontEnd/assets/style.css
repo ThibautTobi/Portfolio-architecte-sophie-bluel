@@ -215,7 +215,7 @@ footer nav ul {
 .back_color{
 	background-color: #E5E5E5;
 }
-.form_connection{
+#form_connection{
 	display: flex;
 	flex-direction: column;
 	align-items: center;

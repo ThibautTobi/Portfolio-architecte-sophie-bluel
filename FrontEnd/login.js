@@ -1,21 +1,75 @@
 
-//const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4"
-const token = null
+const log = null
 
 const userAdmin = {
     email: "sophie.bluel@test.tld" ,
     password : "S0phie",
 };
 
-//  submit not defined ?
+const btnConnect = document.querySelector(".btn_connection");
 
-document.getElementById("form_connection");
-    form_connection.addEventListener("submit",function(e){
+const email = document.getElementById("email").value;
+
+const motDePasse = document.getElementById("password").value;
+
+
+    btnConnect.addEventListener("submit",function(e){
         e.preventDefault();
-
-        if (userAdmin.email && userAdmin.password){ 
         
+        if (userAdmin.email == email && userAdmin.password == motDePasse){
+
         fetch("http://localhost:5678/api/users/login",{
+                method : 'POST',
+                headers: {
+                        'accept' : 'application/json',
+                        'content-type' : 'application/JSON',
+                        },
+                body:  {
+                    "email": "string",
+                    "password": "string"
+                    },
+                    })
+                        .then(res = res.json())
+                        .then(log = res.json())
+            console.log(log)
+    
+ 
+                     
+                       // console.log(reponseConnection)
+                       // console.log(reponseConnection.json()) 
+            //let connection = reponseConnection.JSON();
+            //console.log(reponseConnection) 
+        
+        // associer le token et rediriger vers la page d'acceuil en mode administrateur
+        
+      /*  
+        localStorage.setItem("user",JSON.stringify(logAdmin));
+           
+        location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/";           
+        }
+        else {
+            alert ("l'email ou le mot de passe sont incorrect")
+        } 
+ */
+    }
+    })
+
+
+
+
+
+
+
+
+
+
+/*
+        if ( userAdmin.email == inputEmail && userAdmin.password == inputMdp){
+       // console.log(inputEmail) 
+       // console.log(inputMdp) 
+        //console.log("bon")}
+ 
+       fetch("http://localhost:5678/api/users/login",{
                 method : 'POST',
                 headers: {
                         'accept' : 'application/json',
@@ -24,100 +78,24 @@ document.getElementById("form_connection");
                 body:  {
                         "email": "string",
                         "password": "string"
-                        }})
-            .then(res => res.json())
-            .then(logAdmin =>{ 
-
+                        }
+                    })
+                        .then(res = res.json())
+                        .then(res.json() = log)
+console.log(log)
+                     
+                       // console.log(reponseConnection)
+                       // console.log(reponseConnection.json()) 
+            //let connection = reponseConnection.JSON();
+            //console.log(reponseConnection) 
+                    }})
+                    console.log(log)
         // associer le token et rediriger vers la page d'acceuil en mode administrateur
-        // http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/
         
-            localStorage.setItem("user",JSON.stringify(logAdmin))
-
+        /*
+        localStorage.setItem("user",JSON.stringify(logAdmin));
+           
+        location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/";           
+         */
+        //console.log(logAdmin)
          
-console.log(logAdmin)
-         console.log("sa marche")
-        }
-         )}
-         
-        
-        else {
-            alert ("l'email ou le mot de passe sont incorrect")
-            console.log("probleme")
-        }}
-    );
-
-
-
-
-/*
-function login (){
-    fetch("http://localhost:5678/api/users/login",{
-    method : 'POST',
-    headers: {
-                'accept' : application/json
-                'content-type' : application/JSON
-    }
-    body :{
-  "email": "string",
-  "password": "string"
-}
-})
-.then(reponse => reponse.json())
-.then(result =>{
-    if (result){
-        {
-  "userId": 1,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4"
-}
-    }
-})
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-/*
-const identification = {
-    email : "",
-    password : ""
-}
-
-*/
-/*
-document.querySelector(`. form input[type="button"]`).addEventListener("click", function(){
-    const valid = true;
-    for(let input of document.querySelector(`. form input,.form email,.form password"]`)){
-        //customElements
-        valid &= input.reportValidity();
-        if(!valid){
-            break;
-        }
-    }
-    */
- /*   if(valid){
-        alert("bienvenue sur votre espace");
-    }
-})*/
-/*
-function connection (email,password){
-    if {${email} && ${password} === true
-    //accés authorisé connexion
-    
-    }
-    else{
-    document.prompt("l'email ou le mot de passe sont incorrect")
-}};
-
-{
-    "email": "string",
-    "password": "string"
-}
-*/

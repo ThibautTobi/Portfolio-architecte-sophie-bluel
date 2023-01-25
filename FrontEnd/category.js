@@ -6,6 +6,7 @@
     const titre = document.querySelector(".titre_projet");
     const newDiv = document.createElement("div");
     titre.appendChild(newDiv);
+    newDiv.className = "btn-filtre"
 
     const buttonTous = document.createElement("button");
     newDiv.appendChild(buttonTous);
@@ -57,8 +58,8 @@ let valueObjet = buttonObjets.value
 let valueAppart = buttonAppart.value
 let valueHotel = buttonHotels.value
 
-// click filtre bouton 
-
+// evenements click filtre bouton 
+// bouton tous
 buttonTous.addEventListener('click', function (e) {
     e.preventDefault();
         for(let i in projets){
@@ -75,6 +76,7 @@ buttonTous.addEventListener('click', function (e) {
 
 });
 
+// bouton objets
 buttonObjets.addEventListener('click', function (e) {
     e.preventDefault();
         for(let i in projets){
@@ -93,6 +95,7 @@ buttonObjets.addEventListener('click', function (e) {
             }}
 });
 
+// bouton appart
 buttonAppart.addEventListener('click', function (e) {
     e.preventDefault();
         for(let i in projets){
@@ -111,6 +114,7 @@ buttonAppart.addEventListener('click', function (e) {
             }}
 });
 
+//bouton hotels et restaurants
 buttonHotels.addEventListener('click', function (e) {
     e.preventDefault();
         for(let i in projets){

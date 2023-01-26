@@ -1,6 +1,4 @@
 
-const log = null
-
 const userAdmin = {
     email: "sophie.bluel@test.tld" ,
     password : "S0phie",
@@ -8,38 +6,59 @@ const userAdmin = {
 
 const btnConnect = document.querySelector(".btn_connection");
 
-const email = document.getElementById("email").value;
+const email = document.getElementById("email").value.json();
 
-const motDePasse = document.getElementById("password").value;
+const motDePasse = document.getElementById("password").value.json();
 
 
     btnConnect.addEventListener("submit",function(e){
         e.preventDefault();
         
-        if (userAdmin.email == email && userAdmin.password == motDePasse){
-
-        fetch("http://localhost:5678/api/users/login",{
+        if (userAdmin.email !== email && userAdmin.password !== motDePasse){
+            alert ("l'email ou le mot de passe sont incorrect")
+        }
+        else {
+            try{
+            fetch("http://localhost:5678/api/users/login",
+            {
                 method : 'POST',
-                headers: {
+                headers: 
+                        {
                         'accept' : 'application/json',
                         'content-type' : 'application/JSON',
                         },
-                body:  {
-                    "email": "string",
-                    "password": "string"
-                    },
-                    })
-                        .then(res = res.json())
-                        .then(log = res.json())
-            console.log(log)
-    
- 
-                     
-                       // console.log(reponseConnection)
-                       // console.log(reponseConnection.json()) 
-            //let connection = reponseConnection.JSON();
-            //console.log(reponseConnection) 
+                body:   
+                        {
+                        "email": "string",
+                        "password": "string",
+                        },
+            })
+                .then(res = res.json())
+
+            console.log(res.json)
+
+                .then(logAdmin = res.json())
+            
+            console.log(logAdmin)
+
+        /*  
+            localStorage.setItem("user",JSON.stringify(logAdmin));
+           
+            location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/";           
+        }
+        */
+                }
+            catch{
+                console.log("erreur login")
+            }}
+        });
+
+
+
+
         
+        //let connection = reponseConnection.JSON();
+             
         // associer le token et rediriger vers la page d'acceuil en mode administrateur
         
       /*  
@@ -47,12 +66,8 @@ const motDePasse = document.getElementById("password").value;
            
         location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/";           
         }
-        else {
-            alert ("l'email ou le mot de passe sont incorrect")
-        } 
- */
-    }
-    })
+        */
+    
 
 
 

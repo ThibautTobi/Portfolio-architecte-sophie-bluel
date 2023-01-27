@@ -299,36 +299,32 @@ footer nav ul {
 	border-radius: 60px;
 	margin-left: 21px;
 }
-.btn-intro{
+.a-intro{
 	border: none;
-	background-color: white;
 	margin-bottom: 20px;
 }
-.btn-photo{
+.a-photo{
 	border: none;
-	background-color: white;
 	margin-left: 57px;
 	margin-top: 16px;
 }
-.btn-titre{
+.a-titre{
 	border: none;
-	background-color: white;
 	font-weight: 400;
 	font-size: 14px;
 	margin-left: 30px;
 }
-/*
-.btn-intro:target,.btn-photo.active,.btn-titre.active{
-	background-color: rgba(0, 0, 0, 0.2);
-}
-*/
+
 /******* modale *****/
 /* effet asombrie */
-body.active{
-	background-color: rgba(0, 0, 0, 0.2);
-}
 .modale-container{
 	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.2);
 }
 .modale{
 	box-sizing: border-box;
@@ -345,9 +341,11 @@ body.active{
 	border-radius: 10px;
 	background-color: white;
 }
+
 .modale-container.active{
 	display: block;
 }
+
 .btn-close{
 	position: absolute;
 	right: 2px;
@@ -376,7 +374,7 @@ body.active{
 	margin-top: 40px;
 }
 .mini-gallery{
-	box-sizing: border-box;
+	
 	width: 78px;
 	height: 104px;
 	display: flex;
@@ -413,4 +411,20 @@ body.active{
 	background: #FFFFFF;
 	border-radius: 10px;
 	margin-bottom: 40px;
+}
+
+.modale-ajout{
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: auto;
+	position: fixed;
+	top: 40%;
+	left: 30%;
+	width: 40%;
+	max-width: 630px;
+	height: 730px;
+	border-radius: 10px;
+	background-color: white;
 }

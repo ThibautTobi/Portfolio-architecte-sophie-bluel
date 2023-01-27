@@ -6,9 +6,9 @@ const userAdmin = {
 
 const btnConnect = document.querySelector(".btn_connection");
 
-const email = document.getElementById("email").value.json();
+const email = document.getElementById("email").value;
 
-const motDePasse = document.getElementById("password").value.json();
+const motDePasse = document.getElementById("password").value;
 
 
     btnConnect.addEventListener("submit",function(e){

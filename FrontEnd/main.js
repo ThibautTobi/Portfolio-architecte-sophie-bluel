@@ -57,26 +57,25 @@ logout.innerHTML = "logout"
 
 // j'intégre les boutons modifier 
 const modifierPhoto = document.querySelector("#introduction figure");
-const modifPhoto = document.createElement("button");
+const modifPhoto = document.createElement("a");
 modifierPhoto.appendChild(modifPhoto);
-modifPhoto.className = "btn-photo";
+modifPhoto.className = "a-photo";
 modifPhoto.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> modifier'
 
 const modifierIntro = document.querySelector("#introduction article");
-const modifIntro = document.createElement("button");
+const modifIntro = document.createElement("a");
 modifierIntro.prepend(modifIntro);
-modifIntro.className = "btn-intro";
+modifIntro.className = "a-intro";
 modifIntro.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> modifier'
 
 const modifierTitre = document.querySelector(".titre_projet");
-const modifTitre = document.createElement("button");
+const modifTitre = document.createElement("a");
 modifierTitre.appendChild(modifTitre);
-modifTitre.className = "btn-titre";
+modifTitre.className = "a-titre";
 modifTitre.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> modifier'
 
 // je regroupe les boutons modifier pour ouvrir modale
-const modif = document.querySelectorAll('.btn-titre ,.btn-intro ,.btn-photo');
-
+const modif = document.querySelectorAll('.a-titre ,.a-intro ,.a-photo');
 
 //création de modale
 const modal= document.querySelector("body");
@@ -137,35 +136,37 @@ suppModale.className = "supp-modale";
 suppModale.innerHTML = "Supprimer la galerie";
 
 // jouvre la modal en cliquant sur les boutons modifier 
-modif.forEach(btn => btn.addEventListener("click",openModale))
 
-// stop propagation pour slick sur la fenetre pour la close
-
-let etatModal = null;
-
-
-const openModale = function (e){
+modif.forEach(btn => btn.addEventListener('click', function (e){
   e.preventDefault();
-  const target = document.querySelector(e.target.querySelector(".modale-container"));
-  target.style.display = null ;
-  etatModal = target ;
-  etatModal.addEventListener("click", closeModal);
-  etatModal.querySelector(".btn-close").addEventListener("click", closeModal);
-  etatModal.querySelector(".modale-container-stop").addEventListener("click", stopPropagation);
+  modaleContainer.style.display = "block";
+  modal.classList.toggle("active");
+}));
+
+// je ferme la modale avec la croix
+closeModale.addEventListener("click",function (e){
+  e.preventDefault();
+  modaleContainer.style.display = "none";
+  modal.classList.toggle("active");
+});
+
+// je ferme la modale en cliquant hors de la modale
+const fermer = function (e){
+  e.preventDefault();
+  divModal.addEventListener("click",function (e){e.stopPropagation();})
+  modaleContainer.style.display = "none";
+  modal.classList.toggle("active");
 }
 
-const closeModal = function (e){
-  if (etatModal === null) return
-    e.preventDefault();
-    modaleContainer.style.display = "none";
-    etatModal.querySelector(".btn-close").removeEventListener("click", closeModal);
-    etatModal.querySelector(".modale-container-stop").removeEventListener("click", stopPropagation);
-    etatModal = null ;
-}
+modaleContainer.addEventListener("click",fermer);
 
-const stopPropagation = function (e){
-  e.stopPropagation();
-}
+/*
+modif.forEach(btn => btn.addEventListener("click",openModale));
+document.querySelector(".btn-close").addEventListener("click",closeModal,windowOnClick);
+*/
+
+//modif.forEach(btn => btn.addEventListener("click",openModale))
+
   //modaleContainer.classList.toggle("active");
   //modal.classList.toggle("active");
 
@@ -176,6 +177,14 @@ const stopPropagation = function (e){
 //});
 
 // modale ajouter nouveaux projets
+// création de la modale 
+/*
+btnModale.addEventListener("click", function(e){
+  e.preventDefault();
+
+})
+*/
+
 /*
 btnModale.addEventListener("click",(ouvreModaleAjout)){
 ouvreModaleAjout.classList.toogle("active");
@@ -239,3 +248,32 @@ fetch('http://localhost:5678/api/works', {
 //}
 
 
+/* modal grafi......
+let etatModal = null;
+
+const openModale = function (e){
+  e.preventDefault();
+  const target = (e.target.querySelector(".modale-container"));
+  console.log(target)
+  target.style.display = null ;
+  etatModal = target ;
+  etatModal.addEventListener("click", closeModal);
+  etatModal.querySelector(".btn-close").addEventListener("click", closeModal);
+  etatModal.querySelector(".modale-container-stop").addEventListener("click", stopPropagation);
+}
+
+modif.forEach(btn => btn.addEventListener("click",openModale))
+
+const closeModal = function (e){
+  if (etatModal === null) return
+    e.preventDefault();
+    modaleContainer.style.display = "none";
+    etatModal.querySelector(".btn-close").removeEventListener("click", closeModal);
+    etatModal.querySelector(".modale-container-stop").removeEventListener("click", stopPropagation);
+    etatModal = null ;
+}
+
+const stopPropagation = function (e){
+  e.stopPropagation();
+}
+*/

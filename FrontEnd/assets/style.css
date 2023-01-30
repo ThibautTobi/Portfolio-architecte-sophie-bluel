@@ -388,6 +388,37 @@ footer nav ul {
 	height: 104px;
 	object-fit: contain;
 }
+.move-img{
+	display:block
+}
+.fleche{
+	display: none;
+	width: 11px;
+	height: 11px;
+	position: absolute;
+	background-color: black;
+	color: white;
+	padding: 3px;
+	border-radius: 2px;
+	margin: 6px 0px 0px 34px;
+}
+
+.poubelle{
+	display: block;
+	width: 17px;
+	height: 17px;
+	position: absolute;
+	border-radius: 2px;
+	margin: 6px 0px 0px 54px;
+	background-color: black;
+}
+.img-poubelle{
+	width: 11px;
+	height: 11px;
+	position: absolute;
+	color: white;
+	margin: 3px;
+}
 .ligne-modale{
 	margin: auto;
 	width: 460px;
@@ -405,14 +436,14 @@ footer nav ul {
 	text-align: center;
 	border-radius: 60px ;
 }
-.supp-modale{
+.supp-gallery{
 	margin: auto;
 	color: #D65353;
 	background: #FFFFFF;
 	border-radius: 10px;
 	margin-bottom: 40px;
 }
-
+/*
 .modale-ajout{
 	
 	display: flex;
@@ -426,5 +457,6 @@ footer nav ul {
 	max-width: 630px;
 	height: 730px;
 	border-radius: 10px;
-	background-color: white;
+	background-color: gold;
 }
+*/

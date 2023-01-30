@@ -25,9 +25,17 @@ for(let i in projets){
         </div>` 
 };
 
+
+//console.log(projets)
+
 // verifier si local storage et si valid faire apparaitre et disparaitre
 // json.parse
-//if(localStorage.getItem('....') ===  userAdmin){
+
+//if(localStorage.getItem("user") ===  userAdmin){
+  // ou
+// if (localStorage.getItem("user") !== null){
+
+// ajouter si click sur logout window.localStorage.removeItem("user"); ?
 
 
 // je cache les filtres
@@ -101,10 +109,8 @@ const galleryModale = document.createElement("div");
 divModal.appendChild(galleryModale);
 galleryModale.className = "modale-galery"
 
-// creation des projets en mini pour modification dans   modaleGallery
+// creation des projets en mini pour modification
 
-// <i class="fa-light fa-trash-can"></i> poubelle
-// <i class="fa-solid fa-arrows-up-down-left-right"></i>  deplacement
 for(let i in projets){
   let url = projets[i].imageUrl;
   let title = projets[i].title;
@@ -113,14 +119,29 @@ for(let i in projets){
       `
       <div class="mini-gallery">
           <div id="${id}">
-              <div class="move-img"<i class="fa-solid fa-arrows-up-down-left-right"></i></div>
-              <img class="img-mini"crossorigin="anonymous" src=${url} alt="${title}}">
+              <div class="move-img">
+                <i class="fa-solid fa-arrows-up-down-left-right fleche"></i>
+                <a class="poubelle" id="${id}">
+                  <img class="img-poubelle" src="./assets/icons/poubelle-Vector.svg">
+                </a>
+                <img class="img-mini"crossorigin="anonymous" src=${url} alt="${title}}" >
+              </div>
               <a class="edit-modale">éditer</a>
           </div>
       </div>
       `
     };
 
+/*
+    // je fait disparaitre les fleche si ce n'est pas le premier élément
+    for (let i in projets){
+      let id = projets[i].id;
+      if (id !== 1){
+        const target = document.getElementsByClassName("move-img");
+        target.style.display = "none";
+      }
+    }
+*/
 const ligneModale = document.createElement("div");
 divModal.appendChild(ligneModale);
 ligneModale.className = "ligne-modale";
@@ -132,7 +153,7 @@ btnModale.innerHTML = "Ajouter une photo";
 
 const suppModale = document.createElement("a");
 divModal.appendChild(suppModale);
-suppModale.className = "supp-modale";
+suppModale.className = "supp-gallery";
 suppModale.innerHTML = "Supprimer la galerie";
 
 // jouvre la modal en cliquant sur les boutons modifier 
@@ -160,24 +181,41 @@ const fermer = function (e){
 
 modaleContainer.addEventListener("click",fermer);
 
-/*
-modif.forEach(btn => btn.addEventListener("click",openModale));
-document.querySelector(".btn-close").addEventListener("click",closeModal,windowOnClick);
-*/
-
-//modif.forEach(btn => btn.addEventListener("click",openModale))
-
-  //modaleContainer.classList.toggle("active");
-  //modal.classList.toggle("active");
-
-
-// si je click sur le btn x ou hors de la modal je ferme la modale
-
-
-//});
-
 // modale ajouter nouveaux projets
 // création de la modale 
+/*
+const closeModaleAjout = document.createElement("button");
+divModal.appendChild(closeModale);
+closeModaleAjout.className = "btn-close-ajout";
+closeModaleAjout.innerHTML = "X";
+
+const retourModaleAjout = document.createElement("button");
+divModal.appendChild(closeModale);
+retourModaleAjout.className = "btn-retour-ajout";
+retourModaleAjout.innerHTML = "fleche";
+
+const titreModale = document.createElement("div");
+divModal.appendChild(titreModale);
+titreModale.className = "titre-modale";
+titreModale.innerHTML = "<h3>Ajout photo</h3>";
+
+ formdata
+const closeModaleAjout = document.createElement("button");
+divModal.appendChild(closeModale);
+closeModaleAjout.className = "btn-close-ajout";
+closeModaleAjout.innerHTML = "input photo";
+
+
+const ligneModaleAjout = document.createElement("div");
+divModal.appendChild(ligneModaleAjout);
+ligneModaleAjout.className = "ligne-modale-Ajout";
+
+const btnValid = document.createElement("button");
+divModal.appendChild(btnModale);
+btnValider.className = "btn-valider";
+btnValider.innerHTML = "valider";
+*/
+
 /*
 btnModale.addEventListener("click", function(e){
   e.preventDefault();
@@ -199,25 +237,98 @@ function ouvreModaleAjout (){
 
 
 
-/* modif suppression des projets sur la petites poubelle et click supprimer la galerie select all
+// modif suppression des projets sur la petites poubelle
 
-modif.forEach(btn => btn.addEventListener("click",toggleModale))
+const suppProjet = document.querySelectorAll(".poubelle");
 
-function toggleModale(){
-  modaleContainer.classList.toggle("active");
-  modal.classList.toggle("active")
+const lesMiniGallery = document.querySelectorAll(".mini-gallery");
+
+
+suppProjet.forEach(a => a.addEventListener("click",function(e){
+  e.preventDefault;
+let id = a.getAttribute("id");
+//console.log(id)
+
+for(let i in lesMiniGallery){
+  
+   let element = lesMiniGallery[i].firstElementChild;
+   //let elementId = element[i].id;
+  // console.log(elementId)
+  
+     if (id === element.id){
+        element.parentElement.remove();
+        }
 }
+
+/*
+  fetch ("http://localhost:5678/api/works/${id}", {
+      method : 'DELETE',
+      headers :{
+        'content-type' : 'application/json'
+        'Authorization' : 'user'
+      }}
+      //.then(reponse => {(reponse.ok() => alert("la suppression a réussi")});
+      
+);
+*/
+}));
+
+// suppression de toutes la gallerie avec le bouton supprimer la galerie
+
+const suppAll = document.querySelector(".supp-gallery");
+
+/*
+suppAll.addEventListener("click",function(e){
+  e.preventDefault;
+  //console.log(lesMiniGallery)
+
+  for(let i in lesMiniGallery){
+    let number = lesMiniGallery[i].length;
+    number.forEach.remove();
+  }
+  
+  //for( i = 0 ; i < lesMiniGallery.length ; i--){
+  //  lesMiniGallery[i].remove();
+  //}
 */
 
-/* click bouton envoie vers ajout de nouveaux projet modal 2
 
-modif.forEach(btn => btn.addEventListener("click",toggleModale))
 
-function toggleModale(){
-  modaleContainer.classList.toggle("active");
-  modal.classList.toggle("active")
-}
+/*
+for(let i in projets){
+  let supp = projets[i].id
+    //for(s = 0 ; s < supp.length ; i--))
+      fetch ("http://localhost:5678/api/works/${id}", {
+          method : 'DELETE',
+          headers :{
+            'content-type' : 'application/json'
+            'Authorization' : 'user'
+          }}
+      .then(reponse => (reponse.ok());
+    }
+
+);
 */
+
+//});
+
+
+// faire le lien effacer galerie tout selectionner et supprimer...
+
+
+// click bouton envoie vers ajout de nouveaux projet modal 2
+
+/*
+btn.addEventListener("click",function (e){
+  .modale-ajout
+})
+*/
+
+
+
+
+
+
 
 /*
 // publication de nouveau projets
@@ -247,33 +358,3 @@ fetch('http://localhost:5678/api/works', {
 */
 //}
 
-
-/* modal grafi......
-let etatModal = null;
-
-const openModale = function (e){
-  e.preventDefault();
-  const target = (e.target.querySelector(".modale-container"));
-  console.log(target)
-  target.style.display = null ;
-  etatModal = target ;
-  etatModal.addEventListener("click", closeModal);
-  etatModal.querySelector(".btn-close").addEventListener("click", closeModal);
-  etatModal.querySelector(".modale-container-stop").addEventListener("click", stopPropagation);
-}
-
-modif.forEach(btn => btn.addEventListener("click",openModale))
-
-const closeModal = function (e){
-  if (etatModal === null) return
-    e.preventDefault();
-    modaleContainer.style.display = "none";
-    etatModal.querySelector(".btn-close").removeEventListener("click", closeModal);
-    etatModal.querySelector(".modale-container-stop").removeEventListener("click", stopPropagation);
-    etatModal = null ;
-}
-
-const stopPropagation = function (e){
-  e.stopPropagation();
-}
-*/

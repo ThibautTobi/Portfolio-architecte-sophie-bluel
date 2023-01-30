@@ -6,16 +6,20 @@ const userAdmin = {
 
 const btnConnect = document.querySelector(".btn_connection");
 
-const email = document.getElementById("email").value;
+const inputLogin = {
+    email : document.getElementById("email").value,
+ motDePasse : document.getElementById("password").value,
+}
 
-const motDePasse = document.getElementById("password").value;
-
+const chargeUtile = JSON.stringify(inputLogin);
+console.log(chargeUtile)
+console.log(userAdmin)
 
     btnConnect.addEventListener("submit",function(e){
         e.preventDefault();
         
-        if (userAdmin.email !== email && userAdmin.password !== motDePasse){
-            alert ("l'email ou le mot de passe sont incorrect")
+        if (userAdmin !== inputLogin){
+            alert ("Erreur dans l’identifiant ou le mot de passe")
         }
         else {
             try{
@@ -27,11 +31,7 @@ const motDePasse = document.getElementById("password").value;
                         'accept' : 'application/json',
                         'content-type' : 'application/JSON',
                         },
-                body:   
-                        {
-                        "email": "string",
-                        "password": "string",
-                        },
+                body:   chargeUtile,
             })
                 .then(res = res.json())
 
@@ -44,7 +44,7 @@ const motDePasse = document.getElementById("password").value;
         /*  
             localStorage.setItem("user",JSON.stringify(logAdmin));
            
-            location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/";           
+            windows.location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/";           
         }
         */
                 }
@@ -79,6 +79,10 @@ const motDePasse = document.getElementById("password").value;
 
 
 /*
+
+const email = document.getElementById("email").value;
+const motDePasse = document.getElementById("password").value;
+
         if ( userAdmin.email == inputEmail && userAdmin.password == inputMdp){
        // console.log(inputEmail) 
        // console.log(inputMdp) 

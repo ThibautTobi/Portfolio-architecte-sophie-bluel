@@ -1,28 +1,28 @@
-
+/*
 const userAdmin = {
     email: "sophie.bluel@test.tld" ,
     password : "S0phie",
 };
-
+*/
 const btnConnect = document.querySelector(".btn_connection");
 
-const inputLogin = {
-    email : document.getElementById("email").value,
- motDePasse : document.getElementById("password").value,
-}
+const inputEmail =  document.getElementById("email");
 
-const chargeUtile = JSON.stringify(inputLogin);
-console.log(chargeUtile)
-console.log(userAdmin)
+const inputPass = document.getElementById("password");
 
-    btnConnect.addEventListener("submit",function(e){
+    btnConnect.addEventListener("click",function(e){
         e.preventDefault();
-        
-        if (userAdmin !== inputLogin){
-            alert ("Erreur dans l’identifiant ou le mot de passe")
-        }
-        else {
-            try{
+
+        let inputLogin = {
+                            email : inputEmail.value,
+                            password : inputPass.value,
+                        }
+
+        const chargeUtile = JSON.stringify(inputLogin);
+
+
+        try{
+
             fetch("http://localhost:5678/api/users/login",
             {
                 method : 'POST',
@@ -31,35 +31,29 @@ console.log(userAdmin)
                         'accept' : 'application/json',
                         'content-type' : 'application/JSON',
                         },
-                body:   chargeUtile,
+                body:   
+                        chargeUtile,
+                        
             })
-                .then(res = res.json())
+            .then(res => {
+                if (res.ok) {
+                            return Promise.resolve(res.json());
+                            } 
+                else        {
+                            return Promise.reject(alert ("Erreur dans l’identifiant ou le mot de passe"));
+                            }
+            })
+            .then(data =>   {localStorage.setItem("user",JSON.stringify(data))
+                            location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/"
+            })
 
-            console.log(res.json)
-
-                .then(logAdmin = res.json())
-            
-            console.log(logAdmin)
-
-        /*  
-            localStorage.setItem("user",JSON.stringify(logAdmin));
-           
-            windows.location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/";           
         }
-        */
+            
+        catch   {
+                    //console.log()
                 }
-            catch{
-                console.log("erreur login")
-            }}
-        });
-
-
-
-
+            });
         
-        //let connection = reponseConnection.JSON();
-             
-        // associer le token et rediriger vers la page d'acceuil en mode administrateur
         
       /*  
         localStorage.setItem("user",JSON.stringify(logAdmin));
@@ -70,7 +64,26 @@ console.log(userAdmin)
     
 
 
-
+/*
+            .then((res) => {if (res.ok){
+                                            return res.json()
+                                            }
+                                else    {
+                                        alert ("Erreur dans l’identifiant ou le mot de passe")
+                                        return
+                                        }})
+                                //mettre un stop comme break pour stopper la suite du code
+                .then((data) => {
+                                localStorage.setItem("user",JSON.stringify(data))
+                                })
+                                //location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/"
+                                console.log(localStorage)
+                                let parse = JSON.parse(localStorage.getItem("user"))
+                                console.log(parse)
+                                //let parseToken = parse.value
+                                            } 
+                                            
+                                            // if(){location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/"}   */ 
 
 
 
@@ -117,4 +130,15 @@ console.log(log)
         location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/";           
          */
         //console.log(logAdmin)
-         
+
+        /*
+
+            .then(res => {
+                if (res.ok) {
+                    return Promise.resolve('L utilisateur as été supprimé');
+                } else {
+                    return Promise.reject('Une erreur est survenue');
+                }
+            })
+            .then(res => console.log(res))
+        */

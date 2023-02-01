@@ -31,7 +31,7 @@ for(let i in projets){
 // verifier si local storage et si valid faire apparaitre et disparaitre
 // json.parse
 
-//if(localStorage.getItem("user") ===  userAdmin){
+//if(localStorage.getItem("user")){
   // ou
 // if (localStorage.getItem("user") !== null){
 
@@ -132,16 +132,6 @@ for(let i in projets){
       `
     };
 
-/*
-    // je fait disparaitre les fleche si ce n'est pas le premier élément
-    for (let i in projets){
-      let id = projets[i].id;
-      if (id !== 1){
-        const target = document.getElementsByClassName("move-img");
-        target.style.display = "none";
-      }
-    }
-*/
 const ligneModale = document.createElement("div");
 divModal.appendChild(ligneModale);
 ligneModale.className = "ligne-modale";
@@ -181,85 +171,42 @@ const fermer = function (e){
 
 modaleContainer.addEventListener("click",fermer);
 
-// modale ajouter nouveaux projets
-// création de la modale 
-/*
-const closeModaleAjout = document.createElement("button");
-divModal.appendChild(closeModale);
-closeModaleAjout.className = "btn-close-ajout";
-closeModaleAjout.innerHTML = "X";
-
-const retourModaleAjout = document.createElement("button");
-divModal.appendChild(closeModale);
-retourModaleAjout.className = "btn-retour-ajout";
-retourModaleAjout.innerHTML = "fleche";
-
-const titreModale = document.createElement("div");
-divModal.appendChild(titreModale);
-titreModale.className = "titre-modale";
-titreModale.innerHTML = "<h3>Ajout photo</h3>";
-
- formdata
-const closeModaleAjout = document.createElement("button");
-divModal.appendChild(closeModale);
-closeModaleAjout.className = "btn-close-ajout";
-closeModaleAjout.innerHTML = "input photo";
-
-
-const ligneModaleAjout = document.createElement("div");
-divModal.appendChild(ligneModaleAjout);
-ligneModaleAjout.className = "ligne-modale-Ajout";
-
-const btnValid = document.createElement("button");
-divModal.appendChild(btnModale);
-btnValider.className = "btn-valider";
-btnValider.innerHTML = "valider";
-*/
-
-/*
-btnModale.addEventListener("click", function(e){
-  e.preventDefault();
-
-})
-*/
-
-/*
-btnModale.addEventListener("click",(ouvreModaleAjout)){
-ouvreModaleAjout.classList.toogle("active");
-}
-
-
-function ouvreModaleAjout (){
-
-}*/
-// evenement click  nouveaux projets
-
-
-
-
 // modif suppression des projets sur la petites poubelle
 
 const suppProjet = document.querySelectorAll(".poubelle");
 
 const lesMiniGallery = document.querySelectorAll(".mini-gallery");
 
+// je fait disparaitre les fleche si ce n'est pas le premier élément
+   
+//console.log()
 
 suppProjet.forEach(a => a.addEventListener("click",function(e){
   e.preventDefault;
 let id = a.getAttribute("id");
 //console.log(id)
 
+
+/*
+
+
+ voir .id probleme console 
+
+
+
+*/
+/*
 for(let i in lesMiniGallery){
   
    let element = lesMiniGallery[i].firstElementChild;
-   //let elementId = element[i].id;
-  // console.log(elementId)
+  
+   //console.log(element)
   
      if (id === element.id){
         element.parentElement.remove();
         }
 }
-
+*/
 /*
   fetch ("http://localhost:5678/api/works/${id}", {
       method : 'DELETE',
@@ -277,6 +224,34 @@ for(let i in lesMiniGallery){
 
 const suppAll = document.querySelector(".supp-gallery");
 
+suppAll.addEventListener("click",function(e){
+  e.preventDefault;
+  for(let i in lesMiniGallery){
+    let element = lesMiniGallery[i].firstElementChild;
+    //let id = element.id;
+        element.remove();
+        //console.log(element)
+        //console.log(id)
+  /*
+  fetch ("http://localhost:5678/api/works/${id}", {
+      method : 'DELETE',
+      headers :{
+        'content-type' : 'application/json'
+        'Authorization' : 'user'
+      }}
+      //.then(reponse => {(reponse.ok() => alert("la suppression a réussi")});
+      
+);
+*/
+/*
+for(let i = 0 ; i < lesMiniGallery.length ; i--){
+*/
+}
+
+});
+
+
+
 /*
 suppAll.addEventListener("click",function(e){
   e.preventDefault;
@@ -293,7 +268,6 @@ suppAll.addEventListener("click",function(e){
 */
 
 
-
 /*
 for(let i in projets){
   let supp = projets[i].id
@@ -302,7 +276,7 @@ for(let i in projets){
           method : 'DELETE',
           headers :{
             'content-type' : 'application/json'
-            'Authorization' : 'user'
+            'Authorization' : `Bearer ${sessionStorage["token"]}`
           }}
       .then(reponse => (reponse.ok());
     }
@@ -312,8 +286,6 @@ for(let i in projets){
 
 //});
 
-
-// faire le lien effacer galerie tout selectionner et supprimer...
 
 
 // click bouton envoie vers ajout de nouveaux projet modal 2
@@ -325,7 +297,66 @@ btn.addEventListener("click",function (e){
 */
 
 
+// modale ajouter nouveaux projets
+// création de la modale 
 
+btnModale.addEventListener("click", function (e){
+  e.preventDefault;
+  /*
+  divModal.innerHTML = 
+  `
+    <div class="ajout-modale"></div>
+      <div class="ajout-nav">
+        <a class="nav-fleche"></a>
+        <a class="nav-croix"></a>
+      </div>
+      <h3 class="ajout-titre">Ajout photo</h3>
+      <form class="ajout-form">
+        <div class="ajout-photo">
+          <img class="ajout-img">
+          <button>+ Ajouter photo</button>
+          <p class="ajout-descrip">jpg, png : 4mo max</p>
+      </div>
+      <label class="ajout-label-titre">
+      <input class="ajout-input-titre">
+      <label class="ajout-label-category">
+      <input class="ajout-input-category">
+      </form>
+    <div class="ajout-ligne">
+    </div>
+    <button class="ajput-btn">Valider</button>
+    </div>
+  `*/
+})
+/*
+innerHTML = 
+`
+	<div class="ajout-modale"></div>
+		<div class="ajout-nav">
+			<a class="nav-fleche"></a>
+			<a class="nav-croix"></a>
+		</div>
+		<h3 class="ajout-titre">Ajout photo</h3>
+		<form class="ajout-form">
+			<div class="ajout-photo">
+        <img class="ajout-img">
+				<button>+ Ajouter photo</button>
+        <p class="ajout-descrip">jpg, png : 4mo max</p>
+		</div>
+    <label class="ajout-label-titre">
+		<input class="ajout-input-titre">
+    <label class="ajout-label-category">
+		<input class="ajout-input-category">
+		</form>
+	<div class="ajout-ligne">
+	</div>
+	<button class="ajput-btn">Valider</button>
+	</div>
+`
+*/
+
+
+// evenement click  nouveaux projets
 
 
 

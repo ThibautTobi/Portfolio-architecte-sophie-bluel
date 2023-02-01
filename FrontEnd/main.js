@@ -25,15 +25,16 @@ for(let i in projets){
         </div>` 
 };
 
+/****************************** espace Administrateur  ****************************************/
+// verifier si il y a un localstorage et si oui faire apparaitre
 
-//console.log(projets)
+ if (localStorage.getItem("user") !== null){
+  //const local = localStorage.getItem("user")
+  //const localparse = JSON.parse(local)
+  //console.log(local)
+  //console.log(localparse)
+  //if()
 
-// verifier si local storage et si valid faire apparaitre et disparaitre
-// json.parse
-
-//if(localStorage.getItem("user")){
-  // ou
-// if (localStorage.getItem("user") !== null){
 
 // ajouter si click sur logout window.localStorage.removeItem("user"); ?
 
@@ -62,6 +63,12 @@ boutonPublier.className = "btn-publier";
 const aLogout = document.querySelectorAll('header nav li a');
 const logout =aLogout[2]
 logout.innerHTML = "logout"
+
+// je supprime le localstorage quand je click sur logout pour se deconnecter
+logout.addEventListener("click",function (e){
+  e.preventDefault;
+  window.localStorage.removeItem("user");
+})
 
 // j'intégre les boutons modifier 
 const modifierPhoto = document.querySelector("#introduction figure");
@@ -388,4 +395,4 @@ fetch('http://localhost:5678/api/works', {
   });
 */
 //}
-
+};

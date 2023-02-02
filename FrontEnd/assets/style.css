@@ -324,6 +324,7 @@ footer nav ul {
 	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.2);
 }
+
 .modale{
 	box-sizing: border-box;
 	display: flex;
@@ -440,9 +441,9 @@ footer nav ul {
 	border-radius: 10px;
 	margin-bottom: 40px;
 }
-
-.ajout-modale{
-	
+/************** partie modale ajout ************/
+.modale-ajout{
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -452,7 +453,127 @@ footer nav ul {
 	left: 30%;
 	width: 40%;
 	max-width: 630px;
-	height: 730px;
+	height: auto;
 	border-radius: 10px;
 	background-color: white;
+
+}
+.ajout-nav{
+	display: flex;
+	flex-direction: row;
+	margin-top: 30px;
+}
+.nav-fleche{
+	width: 21px;
+	height: 15px;
+}
+.nav-croix{
+	width: 14px;
+	height: 14px;
+}
+.ajout-titre{	
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+}
+
+.ajout-form{
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+margin-top: 36px;
+}
+
+.ajout-photo{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 420px;
+	height: 169px;
+	background-color: #E8F1F7;
+	border-radius: 3px;
+	
+}
+
+.ajout-img{
+	Height :90px;
+
+}
+
+.fa-image{
+	Width :58px;
+	Height :46px;
+	color: #B9C5CC;
+	margin: 28px 181px 0px 181px;
+}
+.ajout-photo-btn{
+	width: 173px;
+	height: 36px;
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+	text-align: center;
+	background-color: #CBD6DC;
+	color: #306685;
+	border-radius: 50px;
+	border: none;
+	margin: 21px 123.5px 0px 123.5px;
+}
+.ajout-descrip{
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+	color: #444444;
+	text-align: center;
+	margin: 7px 163px 19px 163px;
+}
+.ajout-label-titre{
+	margin-top: 30px;
+	text-align: left;
+	
+}
+.ajout-input-titre{
+	margin-top: 10px;
+	width: 420px;
+	height: 51px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+.ajout-label-category{
+	margin-top: 21px;
+	text-align: left;
+}
+.ajout-input-category{
+	margin-top: 10px;
+	width: 420px;
+	height: 51px;
+	color: #6C6C6C;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+.ajout-ligne{
+	margin-top: 47px;
+	width: 460px;
+	border: 1px solid #B3B3B3;
+}
+.ajout-btn{
+	margin: 32px 0px 55px 0px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 14px;
+	color: white;
+	background-color: #A7A7A7;;
+	padding : 10px 49px 10px 49px;
+	width: 237px;
+	height: 36px;
+	text-align: center;
+	border-radius: 60px ;
+	border: none;
 }

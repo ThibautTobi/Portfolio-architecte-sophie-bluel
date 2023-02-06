@@ -316,34 +316,28 @@ footer nav ul {
 }
 /******* modale *****/
 .modale-container{
-	display: none;
+	visibility: hidden;
+	display: flex;
+	align-items: center;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.2);
+	justify-content: center;
 }
-
 .modale{
-	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: auto;
-	position: fixed;
+	position: absolute;
 	top: 40%;
-	margin-left: 33.3%;
-	margin-right: 33.3%;
 	min-width: 500px;
 	max-width: 630px;
 	max-height: 830px;
 	border-radius: 10px;
 	background-color: white;
-	
-}
-.modale-container.active{
-	display: block;
 }
 .btn-close{
 	position: absolute;
@@ -459,17 +453,37 @@ footer nav ul {
 
 }
 .ajout-nav{
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
+	align-content: center;
 	margin-top: 30px;
+	width: 90%;
+	text-align: center;
 }
 .nav-fleche{
-	width: 21px;
-	height: 15px;
+	border: none;
+	background-color: white;
+	padding: 4px;
+	width: 30px;
+	height: 22px;
 }
-.nav-croix{
-	width: 14px;
-	height: 14px;
+.fleche-retour{
+	display: block;
+	background-color: white;
+	width: 22px;
+	height: 16px;
+	margin: 0px;
+	padding: 0px;
+}
+.nav-close{
+	border: none;
+	background-color: white;
+	padding: auto;
+	width: 18px;
+	height: 24px;
+	font-size: 18px;
 }
 .ajout-titre{	
 	font-family: 'Work Sans';
@@ -479,14 +493,13 @@ footer nav ul {
 	line-height: 30px;
 	text-align: center;
 }
-
 .ajout-form{
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-margin-top: 36px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 36px;
 }
-
 .ajout-photo{
 	display: flex;
 	flex-direction: column;
@@ -495,20 +508,28 @@ margin-top: 36px;
 	height: 169px;
 	background-color: #E8F1F7;
 	border-radius: 3px;
-	
 }
-
 .ajout-img{
-	Height :90px;
-
+	Height :100px;
 }
-
+.image-upload{
+	display: none;
+	width: 129px;
+	height: 193px;
+}
 .fa-image{
 	Width :58px;
 	Height :46px;
 	color: #B9C5CC;
 	margin: 28px 181px 0px 181px;
 }
+/*
+position: absolute;
+width: 129px;
+height: 193px;
+object-fit
+background: url("");
+*/
 .ajout-photo-btn{
 	width: 173px;
 	height: 36px;
@@ -523,6 +544,10 @@ margin-top: 36px;
 	border-radius: 50px;
 	border: none;
 	margin: 21px 123.5px 0px 123.5px;
+	
+}
+#image_uploads{
+	display: none;
 }
 .ajout-descrip{
 	font-family: 'Work Sans';
@@ -537,9 +562,14 @@ margin-top: 36px;
 .ajout-label-titre{
 	margin-top: 30px;
 	text-align: left;
-	
+	color: #444444;
 }
 .ajout-input-titre{
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
 	margin-top: 10px;
 	width: 420px;
 	height: 51px;
@@ -551,10 +581,15 @@ margin-top: 36px;
 	text-align: left;
 }
 .ajout-input-category{
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
 	margin-top: 10px;
 	width: 420px;
 	height: 51px;
-	color: #6C6C6C;
+	color: #444444;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
@@ -576,4 +611,7 @@ margin-top: 36px;
 	text-align: center;
 	border-radius: 60px ;
 	border: none;
+}
+.ajout-btn:focus{
+background-color: #1D6154;
 }

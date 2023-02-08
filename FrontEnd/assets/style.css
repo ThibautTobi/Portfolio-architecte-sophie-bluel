@@ -394,7 +394,6 @@ footer nav ul {
 	border-radius: 2px;
 	margin: 6px 0px 0px 34px;
 }
-
 .poubelle{
 	display: block;
 	width: 17px;
@@ -417,6 +416,7 @@ footer nav ul {
 	border: 1px solid #B3B3B3;
 }
 .btn-modale{
+	border: none;
 	margin: 20px;
 	font-family: 'Syne';
 	font-weight: 700;
@@ -493,7 +493,7 @@ footer nav ul {
 	line-height: 30px;
 	text-align: center;
 }
-.ajout-form{
+#ajout-form{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -505,7 +505,7 @@ footer nav ul {
 	flex-direction: column;
 	justify-content: center;
 	width: 420px;
-	height: 169px;
+	height: 193px;
 	background-color: #E8F1F7;
 	border-radius: 3px;
 }
@@ -516,6 +516,7 @@ footer nav ul {
 	display: none;
 	width: 129px;
 	height: 193px;
+	margin: auto;
 }
 .fa-image{
 	Width :58px;
@@ -523,13 +524,6 @@ footer nav ul {
 	color: #B9C5CC;
 	margin: 28px 181px 0px 181px;
 }
-/*
-position: absolute;
-width: 129px;
-height: 193px;
-object-fit
-background: url("");
-*/
 .ajout-photo-btn{
 	width: 173px;
 	height: 36px;
@@ -543,8 +537,7 @@ background: url("");
 	color: #306685;
 	border-radius: 50px;
 	border: none;
-	margin: 21px 123.5px 0px 123.5px;
-	
+	margin: 21px 123.5px 0px 123.5px;	
 }
 #image_uploads{
 	display: none;

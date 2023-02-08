@@ -1,9 +1,4 @@
-/*
-const userAdmin = {
-    email: "sophie.bluel@test.tld" ,
-    password : "S0phie",
-};
-*/
+// page de login
 const btnConnect = document.querySelector(".btn_connection");
 
 const inputEmail =  document.getElementById("email");
@@ -46,6 +41,6 @@ const inputPass = document.getElementById("password");
         }      
         catch   
         {
-        //console.log()
+        console.log(erreur)
         }
             });

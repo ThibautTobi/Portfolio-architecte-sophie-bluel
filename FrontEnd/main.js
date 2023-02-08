@@ -2,7 +2,6 @@
 /***************recupérer dynamiquement les donnés du server **************/
 
  // je récupére les donnés des projets du serveur et enregistre dans const projets
-
 const reponseProjet = await fetch("http://localhost:5678/api/works");
 const projets = await reponseProjet.json();
 
@@ -32,7 +31,7 @@ if (localStorage.getItem("user") !== null){
   const local = localStorage.getItem("user");
   const localParse = JSON.parse(local);
   const token = localParse.token;
-  //console.log(token)
+ 
   // je cache les filtres
   const cacherBtn = document.querySelector(".btn-filtre");
   cacherBtn.style.display ="none";
@@ -145,13 +144,14 @@ if (localStorage.getItem("user") !== null){
 
   // je recupére la div modale dans une constante 
   const divModale = document.querySelector(".modale");
+
   // je créé mes fonction ouverture fermeture et stop propagation
     function open (e){
       e.preventDefault();
-      e.stopPropagation();
+      divModale.addEventListener("click",function (e){e.stopPropagation();})
       modaleContainer.style.visibility= "visible";
     };
-    
+
     function close (e){
       e.preventDefault();
       e.stopPropagation();
@@ -182,12 +182,9 @@ if (localStorage.getItem("user") !== null){
 
   suppProjet.forEach(a => a.addEventListener("click",function(e){
     e.preventDefault;
-    console.log(a)
-  let id = a.getAttribute("id");
-  console.log(id)
-  let divElementId = document.getElementById(`${id}`);
-
-  divElementId.parentNode.remove();
+    let id = a.getAttribute("id");
+    let divElementId = document.getElementById(`${id}`);
+    divElementId.parentNode.remove();
 
     fetch (`http://localhost:5678/api/works/${id}`, {
         method : 'DELETE',
@@ -204,8 +201,7 @@ if (localStorage.getItem("user") !== null){
           alert("Erreur le projet n'a pas été supprimer")
           console.log("sa ne marche pas")
         }})  
-  )
-  }
+  )}
   ));
   };
 
@@ -219,10 +215,8 @@ if (localStorage.getItem("user") !== null){
   suppAll.addEventListener("click",function(e){
     e.preventDefault;
 
-    //**************************************************************************************************************************************** */
-for (let i in projets){
-  let id = projets[i].id;
-  console.log(id)
+    for (let i in projets){
+      let id = projets[i].id;
 
       fetch (`http://localhost:5678/api/works/${id}`, {
           method : 'DELETE',
@@ -243,6 +237,7 @@ for (let i in projets){
         }
   });
   };
+
   // j'appel la fonction
   suppAllProjets();
 
@@ -284,9 +279,9 @@ for (let i in projets){
           <button type="submit" class="ajout-btn">Valider</button>
         </form>`
 
-      // fermeture de la modale en cliquant sur la croix  
-      const closeAjout = document.querySelector(".nav-close");
-      closeAjout.addEventListener("click",close);
+    // fermeture de la modale en cliquant sur la croix  
+    const closeAjout = document.querySelector(".nav-close");
+    closeAjout.addEventListener("click",close);
       
     // je fait apparaitre la photo a ajouter
     const btnAjoutPhotoForm = document.querySelector(".ajout-photo-btn");
@@ -302,12 +297,12 @@ for (let i in projets){
         btnAjoutPhoto.style.visibility = "hidden";
         descriptifPhoto.style.visibility = "hidden";
         btnAjoutPhotoForm.style.visibility = "hidden";
-      }
-    }
-    btnAjoutPhoto.addEventListener("change", function (e){
-      e.preventDefault();
-      preview(e)
-    });
+      }}
+
+      btnAjoutPhoto.addEventListener("change", function (e){
+        e.preventDefault();
+        preview(e)
+      });
   
   // publication de nouveau projets
   const formulaire =divModale.querySelector("#ajout-form");
@@ -319,13 +314,13 @@ for (let i in projets){
   const titreForm = formulaire.querySelector(".ajout-input-titre");
   const categoryForm = formulaire.querySelector(".ajout-input-category");
   */
-/*
+
 const dataForm = new FormData();
     
 dataForm.append("image", imageForm.files[0] , imageForm);
 dataForm.append("title", titreForm.value);
 dataForm.append("category", categoryForm.value);
-*/
+
 
   // je soumet le formulaire
   btnAjoutProjet.addEventListener("click", async function(e){
@@ -347,7 +342,20 @@ dataForm.append("category", categoryForm.value);
  })
 
 
+/*                                                   envoi requete mais pas bon format category  parseInt a faire
+await fetch('http://localhost:5678/api/works', {
+    method: 'POST',
+    headers: {
+              //'accept': 'application/json',
+              
+              'Authorization' : `Bearer ${token}`,
+              }, 
+    body: new FormData(formulaire),   // category parseInt     
+ })
+ .then((reponse) => reponse.json())
+ .then((data) => {console.log(data)});
 
+*/
 
 
 
@@ -371,252 +379,3 @@ const btnAjout = document.querySelector(".btn-modale");
 btnAjout.addEventListener("click", modaleAjout);
 
 }; // fin de l'espace administrateur
-
-/*
-function(e){
-e.preventDefault();
-modaleContainer.addEventListener("click", clickContainer);
-divModale.innerHTML = modale();
-miniProjet();
-btnCloseModale.addEventListener("click",close);
-*/
-
-
-
-
-
-
-
-
-  /*
-  fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-              'accept' : 'application/json',
-              'content-type' : 'multipart/form-data',
-              }, 
-    body: 'formDataProjet',
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log('Success:', result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-  // publication de nouveau projets  ********************************************* créé une img ou div pour remplacer et faire apparaitre l'image a upload
-
-  const formData = new FormData();
-  const fileField = document.querySelector('input[type="file"]');
-
-  formData.append('image' = null);
-  formData.append('titre'= null);
-  formData.append('category'= null);
-
-  fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-              'accept' : 'application/json',
-              'content-type' : 'multipart/form-data',
-              } 
-    body: formData
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log('Success:', result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  */
-
-
-
-
-
-
-
-  /*
-  innerHTML = 
-  `
-    <div class="ajout-modale"></div>
-      <div class="ajout-nav">
-        <a class="nav-fleche"></a>
-        <a class="nav-croix"></a>
-      </div>
-      <h3 class="ajout-titre">Ajout photo</h3>
-      <form class="ajout-form">
-        <div class="ajout-photo">
-          <img class="ajout-img">
-          <button>+ Ajouter photo</button>
-          <p class="ajout-descrip">jpg, png : 4mo max</p>
-      </div>
-      <label class="ajout-label-titre">
-      <input class="ajout-input-titre">
-      <label class="ajout-label-category">
-      <input class="ajout-input-category">
-      </form>
-    <div class="ajout-ligne">
-    </div>
-    <button class="ajput-btn">Valider</button>
-    </div>
-  `
-  */
-
-/*
-  console.log(imageForm.value)
-  console.log(titreForm.value)
-  console.log(categoryForm.value)
-  console.log(dataForm)
-*/
-    
-/*
-  const dataFormJson =JSON.stringify(dataForm);
-  console.log(dataFormJson)
-  fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-              'accept' : 'application/json',
-              'content-type' : 'multipart/form-data',
-              'Authorization' : `Bearer ${token}`
-              }, 
-    body: dataForm,
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log('Success:', result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  */
-
-
-
- //console.log("image",image);
-  //console.log("title", title);
-  //console.log("category",category);
-  //console.log(dataForm)
-
-/*
-  console.log("image",image)
-  console.log("title", title)
-  console.log("category",category)
-  console.log("test",{ image, title, category});
-*/
-/*
-  function dataForm (e){
-    e.preventDefault();
-    const dataFormulaire = new FormData(formulaire);
-    
-    const image =dataFormulaire.get("image");
-    const title = dataFormulaire.get("title");
-    const category = dataFormulaire.get("category");
-
-    console.log("image",image)
-    console.log("title", title)
-    console.log("category",category)
-    console.log("test",{ image, title, category});
-
-    fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-              'accept' : 'application/json',
-              'content-type' : 'multipart/form-data',
-              'Authorization' : `Bearer ${token}`
-              }, 
-    body: dataFormulaire,
-  })
-  /*
-    .then((response) => response.json())
-    .then((result) => {
-      console.log('Success:', result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-    */
-  //};
-
-  /*
-  dataForm.append("image", `${imageForm}`);
-  dataForm.append("title", `${titreForm}`);
-  dataForm.append("category", categoryForm);
-*/
-
-
-
-
-  /**************************************** premiere creation modale sans inner html ****************************************************/
-  /*
-  const closeModale = document.createElement("button");
-  divModal.appendChild(closeModale);
-  closeModale.className = "btn-close";
-  closeModale.innerHTML = "X";
-
-  const titreModale = document.createElement("div");
-  divModal.appendChild(titreModale);
-  titreModale.className = "titre-modale";
-  titreModale.innerHTML = "<h3>Galerie photo</h3>";
-
-  const galleryModale = document.createElement("div");
-  divModal.appendChild(galleryModale);
-  galleryModale.className = "modale-galery"
-
-  // creation des projets en mini pour modification
-
-  for(let i in projets){
-    let url = projets[i].imageUrl;
-    let title = projets[i].title;
-    let id = projets[i].id;              
-    document.querySelector(".modale-galery").innerHTML +=
-        `
-        <div class="mini-gallery">
-            <div id="${id}">
-                <div class="move-img">
-                  <i class="fa-solid fa-arrows-up-down-left-right fleche"></i>
-                  <a class="poubelle" id="${id}">
-                    <img class="img-poubelle" src="./assets/icons/poubelle-Vector.svg">
-                  </a>
-                  <img class="img-mini"crossorigin="anonymous" src=${url} alt="${title}}" >
-                </div>
-                <a class="edit-modale">éditer</a>
-            </div>
-        </div>
-        `
-      };
-
-  const ligneModale = document.createElement("div");
-  divModal.appendChild(ligneModale);
-  ligneModale.className = "ligne-modale";
-
-  const btnModale = document.createElement("button");
-  divModal.appendChild(btnModale);
-  btnModale.className = "btn-modale";
-  btnModale.innerHTML = "Ajouter une photo";
-
-  const suppModale = document.createElement("a");
-  divModal.appendChild(suppModale);
-  suppModale.className = "supp-gallery";
-  suppModale.innerHTML = "Supprimer la galerie";
-  */

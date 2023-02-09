@@ -317,39 +317,37 @@ if (localStorage.getItem("user") !== null){
     const formulaire =divModale.querySelector("#ajout-form");
     const btnAjoutProjet = document.querySelector(".ajout-btn");
   
-    //const imageForm = formulaire.querySelector("#image_uploads").files[0];
+    const imageForm = formulaire.querySelector("#image_uploads").files[0];
     
-   //const blodImage = formulaire.querySelector(".image-upload");
+   const blodImage = formulaire.querySelector(".image-upload").src;
 
   
   /*
     const titreForm = formulaire.querySelector(".ajout-input-titre");
     const categoryForm = formulaire.querySelector(".ajout-input-category");
   */
-
-    /*
+    
     const dataForm = new FormData();
 
-    dataForm.append("image", imageForm, imageForm.name);
+    dataForm.append("image", blodImage, imageForm);
     dataForm.append("title", titreForm.value);
     dataForm.append("category", categoryForm.value);
-    */
-
+    
     
 
     // je soumet le formulaire
     btnAjoutProjet.addEventListener("click",async function(e){
       e.preventDefault();
-
-      let dataForm = new FormData(formulaire);
-    /*
+      console.log(blodImage)
+/*
+    let dataForm = new FormData();
+    
     dataForm.append("image", imageForm, imageForm);
     dataForm.append("title", titreForm.value);
     dataForm.append("category", categoryForm.value);
-    */
-      
+     
     console.log(Array.from(dataForm))
-
+*/
       
     await fetch('http://localhost:5678/api/works', {
       method: 'POST',

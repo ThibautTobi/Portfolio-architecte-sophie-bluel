@@ -133,12 +133,16 @@ if (localStorage.getItem("user") !== null){
         }
 
     // je fait aparaitre la fleche si c'est le premier élément de la liste  
+    function miniFleche (){
     const lesMiniGallery = document.querySelectorAll(".mini-gallery");
     const premiererDiv = lesMiniGallery.item(0);
     const targetFleche = premiererDiv.querySelector(".fleche");
-
-    targetFleche.style.display = "block";
-  };
+          targetFleche.style.display = "block";
+    }
+    if(projets.length !== 0){
+      miniFleche();
+    };
+  }
   //j'appelle la function miniProjet
   miniProjet();
 
@@ -190,17 +194,22 @@ if (localStorage.getItem("user") !== null){
         method : 'DELETE',
         headers :{
           'content-type' : 'application/json',
-          'Authorization' : `Bearer ${token}`,
+          'Authorization' : `Bearer ${token}`
         }}
-        .then(res => {
-          if (res.ok)
-          {alert("la suppression du projet a réussi")
-          console.log("sa marche")
+        /*
+        .then((res) => {res.json()})
+          
+        .then(response =>{
+          if (response.ok)
+          { 
+            
+            alert("la suppression du projet a réussi"),
+            Promise.resolve(res.json())
           }
         else {
           alert("Erreur le projet n'a pas été supprimer")
-          console.log("sa ne marche pas")
         }})  
+        */
   )}
   ));
   };
@@ -208,7 +217,7 @@ if (localStorage.getItem("user") !== null){
   suppUnProjet();
 
   // suppression de toutes la gallerie avec le bouton supprimer la galerie
-  console.log(projets)
+
   function suppAllProjets (){
   const suppAll = document.querySelector(".supp-gallery");
 
@@ -224,7 +233,7 @@ if (localStorage.getItem("user") !== null){
             'content-type' : 'application/json',
             'Authorization' : `Bearer ${token}`,
           }})
-    
+    /*
           .then(res => {
             if (res.ok)
             {alert("la suppression des projets a réussi")
@@ -233,7 +242,7 @@ if (localStorage.getItem("user") !== null){
           else {
             alert("Erreur les projets n'ont pas été supprimer")
             console.log("sa ne marche pas")
-          }})  
+          }})  */
         }
   });
   };
@@ -241,141 +250,157 @@ if (localStorage.getItem("user") !== null){
   // j'appel la fonction
   suppAllProjets();
 
-  // modale ajouter nouveaux projets , je remplace le innerHTML
-  function modaleAjout (){
-    divModale.addEventListener("click",function (e){e.stopPropagation()});
-    divModale.innerHTML =
-    `
-        <div class="ajout-nav">
-          <button class="nav-fleche">
-            <img src="./assets/icons/Arrow_Back.svg" alt="fleche-retour" class="fleche-retour">
-          </button>
-          <button class="nav-close">X</button>
-        </div>
-        <h3 class="ajout-titre">Ajout photo</h3>
-        <form method="POST" enctype="multipart/form-data" id="ajout-form">
-          <div class="ajout-photo">
-          
-            <div class="ajout-img">
-              <img class="image-upload" src="#" alt="image">
-              <i class="fa-thin fa-image image-icone"></i>
-            </div>
-
-            <label for="image_uploads" class="ajout-photo-btn">+ Ajouter photo</label>
-            <input type="file" id="image_uploads" name="image" accept=".jpg, .png" size="4000" required>
-            
-            <p class="ajout-descrip">jpg, png : 4mo max</p>
+    // modale ajouter nouveaux projets , je remplace le innerHTML
+    function modaleAjout (){
+      divModale.addEventListener("click",function (e){e.stopPropagation()});
+      divModale.innerHTML =
+      `
+          <div class="ajout-nav">
+            <button class="nav-fleche">
+              <img src="./assets/icons/Arrow_Back.svg" alt="fleche-retour" class="fleche-retour">
+            </button>
+            <button class="nav-close">X</button>
           </div>
-          <label class="ajout-label-titre">Titre</label>
-          <input class="ajout-input-titre" name="title" required>
-          <label class="ajout-label-category">Catégorie</label>
-          <select class="ajout-input-category" name="category" required>
-            <option value=""></option>
-            <option value="Objets">Objets</option>
-            <option value="Appartements">Appartements</option>
-            <option value="Hôtels & restaurants">Hôtels & restaurants</option>
-          </select>
-          <div class="ajout-ligne"></div>
-          <button type="submit" class="ajout-btn">Valider</button>
-        </form>`
+          <h3 class="ajout-titre">Ajout photo</h3>
+          <form method="POST" enctype="multipart/form-data" id="ajout-form">
+            <div class="ajout-photo">
+            
+              <div class="ajout-img">
+                <img class="image-upload" src="#" alt="image">
+                <i class="fa-thin fa-image image-icone"></i>
+              </div>
 
-    // fermeture de la modale en cliquant sur la croix  
-    const closeAjout = document.querySelector(".nav-close");
-    closeAjout.addEventListener("click",close);
-      
-    // je fait apparaitre la photo a ajouter
-    const btnAjoutPhotoForm = document.querySelector(".ajout-photo-btn");
-    const btnAjoutPhoto = document.querySelector("#image_uploads");
-    const descriptifPhoto = document.querySelector(".ajout-descrip");
+              <label for="image_uploads" class="ajout-photo-btn">+ Ajouter photo</label>
+              <input type="file" id="image_uploads" name="image" accept=".jpg, .png" size="4000" required>
+              
+              <p class="ajout-descrip">jpg, png : 4mo max</p>
+            </div>
+            <label class="ajout-label-titre">Titre</label>
+            <input class="ajout-input-titre" name="title" type="text"required>
+            <label class="ajout-label-category">Catégorie</label>
+            <select class="ajout-input-category" name="category" required>
+              <option value=""></option>
+              <option value="Objets">Objets</option>
+              <option value="Appartements">Appartements</option>
+              <option value="Hôtels & restaurants">Hôtels & restaurants</option>
+            </select>
+            <div class="ajout-ligne"></div>
+            <button type="submit" class="ajout-btn">Valider</button>
+          </form>`
 
-    const preview = (event) =>{
-      if (event.target.files.length > 0){
-        let src = URL.createObjectURL(event.target.files[0]);
-        let voir = document.querySelector(".image-upload");
-        voir.src = src;
-        voir.style.display="block";
-        btnAjoutPhoto.style.visibility = "hidden";
-        descriptifPhoto.style.visibility = "hidden";
-        btnAjoutPhotoForm.style.visibility = "hidden";
-      }}
+      // fermeture de la modale en cliquant sur la croix  
+      const closeAjout = document.querySelector(".nav-close");
+      closeAjout.addEventListener("click",close);
+        
+      // je fait apparaitre la photo a ajouter
+      const btnAjoutPhotoForm = document.querySelector(".ajout-photo-btn");
+      const btnAjoutPhoto = document.querySelector("#image_uploads");
+      const descriptifPhoto = document.querySelector(".ajout-descrip");
 
-      btnAjoutPhoto.addEventListener("change", function (e){
-        e.preventDefault();
-        preview(e)
-      });
+      const preview = (event) =>{
+        if (event.target.files.length > 0){
+          let src = URL.createObjectURL(event.target.files[0]);
+          let voir = document.querySelector(".image-upload");
+          voir.src = src;
+          voir.style.display="block";
+          btnAjoutPhoto.style.visibility = "hidden";
+          descriptifPhoto.style.visibility = "hidden";
+          btnAjoutPhotoForm.style.visibility = "hidden";
+        }}
+
+        btnAjoutPhoto.addEventListener("change", function (e){
+          e.preventDefault();
+          preview(e)
+        });
+    
+    // publication de nouveau projets *************************************************************************
+    const formulaire =divModale.querySelector("#ajout-form");
+    const btnAjoutProjet = document.querySelector(".ajout-btn");
   
-  // publication de nouveau projets
-  const formulaire =divModale.querySelector("#ajout-form");
-  const btnAjoutProjet = document.querySelector(".ajout-btn");
-/*
-  const imageForm = formulaire.querySelector("#image_uploads");
+    //const imageForm = formulaire.querySelector("#image_uploads").files[0];
+    
+   //const blodImage = formulaire.querySelector(".image-upload");
 
-
-  const titreForm = formulaire.querySelector(".ajout-input-titre");
-  const categoryForm = formulaire.querySelector(".ajout-input-category");
+  
+  /*
+    const titreForm = formulaire.querySelector(".ajout-input-titre");
+    const categoryForm = formulaire.querySelector(".ajout-input-category");
   */
 
-const dataForm = new FormData();
+    /*
+    const dataForm = new FormData();
+
+    dataForm.append("image", imageForm, imageForm.name);
+    dataForm.append("title", titreForm.value);
+    dataForm.append("category", categoryForm.value);
+    */
+
     
-dataForm.append("image", imageForm.files[0] , imageForm);
-dataForm.append("title", titreForm.value);
-dataForm.append("category", categoryForm.value);
 
-
-  // je soumet le formulaire
-  btnAjoutProjet.addEventListener("click", async function(e){
-    e.preventDefault();
-
-
-  await fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-              //'accept': 'application/json',
-              
-              'Authorization' : `Bearer ${token}`,
-              }, 
-    body: new FormData(formulaire),   // category parseInt     
- })
- .then((reponse) => reponse.json())
- .then((data) => {console.log(data)});
-
- })
-
-
-/*                                                   envoi requete mais pas bon format category  parseInt a faire
-await fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-              //'accept': 'application/json',
-              
-              'Authorization' : `Bearer ${token}`,
-              }, 
-    body: new FormData(formulaire),   // category parseInt     
- })
- .then((reponse) => reponse.json())
- .then((data) => {console.log(data)});
-
-*/
-
-
-
-  //retour en arriére si je click sur la fleche
-    const retourFleche = document.querySelector(".fleche-retour");
-    console.log(retourFleche)
-    retourFleche.addEventListener("click", function (e){
+    // je soumet le formulaire
+    btnAjoutProjet.addEventListener("click",async function(e){
       e.preventDefault();
-      modale();
-      miniProjet();
-      suppUnProjet();
-      suppAllProjets();
-      document.querySelector(".btn-close").addEventListener("click",close);
-      document.querySelector(".btn-modale").addEventListener("click",modaleAjout);
-    });
-    
-};
+
+      let dataForm = new FormData(formulaire);
+    /*
+    dataForm.append("image", imageForm, imageForm);
+    dataForm.append("title", titreForm.value);
+    dataForm.append("category", categoryForm.value);
+    */
+      
+    console.log(Array.from(dataForm))
+
+      
+    await fetch('http://localhost:5678/api/works', {
+      method: 'POST',
+      headers: {
+                'accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+                'Authorization' : `Bearer ${token}`
+                }, 
+      body: dataForm,  
+  })
+  .then((reponse) => reponse.json())
   
-// click bouton ouvre la modale ajout de nouveaux projet
-const btnAjout = document.querySelector(".btn-modale");
-btnAjout.addEventListener("click", modaleAjout);
+  .then((data) => {console.log(data)});
+
+  })
+
+
+    /*                                                   
+    await fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        headers: {
+                  //'accept': 'application/json',
+                  
+                  'Authorization' : `Bearer ${token}`,
+                  }, 
+        body: new FormData(formulaire), 
+    })
+    .then((reponse) => reponse.json())
+    .then((data) => {console.log(data)});
+
+    */
+
+
+    //retour en arriére si je click sur la fleche
+      const retourFleche = document.querySelector(".fleche-retour");
+      
+      retourFleche.addEventListener("click", function (e){
+        e.preventDefault();
+        modale();
+        miniProjet();
+        suppUnProjet();
+        suppAllProjets();
+        document.querySelector(".btn-close").addEventListener("click",close);
+        document.querySelector(".btn-modale").addEventListener("click",modaleAjout);
+      });
+      
+  };
+  
+  // click bouton ouvre la modale ajout de nouveaux projet
+  const btnAjout = document.querySelector(".btn-modale");
+  btnAjout.addEventListener("click", modaleAjout);
 
 }; // fin de l'espace administrateur
+

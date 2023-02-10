@@ -315,23 +315,24 @@ if (localStorage.getItem("user") !== null){
     
     // publication de nouveau projets *************************************************************************
     //je recupére mon formulaire et bouton submit
-    const formulaire =divModale.querySelector("#ajout-form");
-    const btnAjoutProjet = document.querySelector(".ajout-btn");
+    const formulaire = divModale.querySelector("#ajout-form");
+    //const btnAjoutProjet = document.querySelector(".ajout-btn");
   
     // je récupére mes inputs
-    //const imageForm = formulaire.querySelector("#image_uploads");
+    //const imageForm = formulaire.querySelector("#image_uploads").files[0];
     //const blodImage = formulaire.querySelector(".image-upload");
 
-    const titreForm = formulaire.querySelector(".ajout-input-titre");
+    //const titreForm = formulaire.querySelector(".ajout-input-titre");
     //const titre = titreForm.value;
-    const categoryForm = formulaire.querySelector(".ajout-input-category");
+    //const categoryForm = formulaire.querySelector(".ajout-input-category");
 
-    const cate = btoa(categoryForm);
-
+    //const cate = btoa(categoryForm);
+/*
     const dataForm = new FormData(formulaire);
-    dataForm.set("title", titreForm.vaue);
+    dataForm.set("title", titreForm.value);
     dataForm.set("category", cate);
-
+    JSON.stringify(dataForm)
+*/
    /* 
     const dataForm = new FormData()
 
@@ -351,18 +352,30 @@ if (localStorage.getItem("user") !== null){
       formdata();
       */
     // je soumet le formulaire
-    btnAjoutProjet.addEventListener("click",async function(e){
+    formulaire.addEventListener("submit", function(e){
       e.preventDefault();
 
+      const imageForm = formulaire.querySelector("#image_uploads").files[0];
+      const titreForm = formulaire.querySelector(".ajout-input-titre");
+      const categoryForm = formulaire.querySelector(".ajout-input-category");
+
+      const dataForm = new FormData();
+
+      dataForm.append("image", imageForm.files[0], imageForm.files[0].name);
+      dataForm.append("title", titreForm.value );
+      //dataForm.append("category", categoryForm.value);
+      dataForm.append("category", categoryForm).value;
+
       //console.log(blodImage)
-      //console.log(titre)
+      //console.log(titreForm)
       //console.log(titreForm.value)
       //console.log(formdata)
       //console.log(cate)
       //console.log(imageForm)
       //console.log(imageForm.value)
       //console.log(typeof imageForm)
-      
+     
+
 /*
     let dataForm = new FormData();
     
@@ -372,12 +385,11 @@ if (localStorage.getItem("user") !== null){
     console.log(Array.from(dataForm))
 */
 
-console.log(Array.from(dataForm))
-    /*
-    await fetch('http://localhost:5678/api/works', {
+        console.log(Array.from(dataForm))
+ 
+    fetch('http://localhost:5678/api/works', {
       method: 'POST',
       headers: {
-                'accept': 'application/json',
                 'Content-Type': 'multipart/form-data',
                 'Authorization' : `Bearer ${token}`
                 }, 
@@ -386,7 +398,7 @@ console.log(Array.from(dataForm))
   .then((reponse) => reponse.json())
   
   .then((data) => {console.log(data)});
-*/
+
   })
 
 

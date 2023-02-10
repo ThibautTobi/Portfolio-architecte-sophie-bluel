@@ -362,9 +362,9 @@ if (localStorage.getItem("user") !== null){
       const dataForm = new FormData();
 
       dataForm.append("image", imageForm.files[0], imageForm.files[0].name);
-      dataForm.append("title", titreForm.value );
+      dataForm.append("title", titreForm.value);
       //dataForm.append("category", categoryForm.value);
-      dataForm.append("category", categoryForm).value;
+      dataForm.append("category", categoryForm);
 
       //console.log(blodImage)
       //console.log(titreForm)

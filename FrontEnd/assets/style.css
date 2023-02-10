@@ -300,13 +300,15 @@ footer nav ul {
 	margin-left: 21px;
 }
 .a-intro{
+	display: block;
 	border: none;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .a-photo{
+	position: absolute;
 	border: none;
 	margin-left: 57px;
-	margin-top: 16px;
+	padding-top: 12px;
 }
 .a-titre{
 	border: none;

@@ -275,9 +275,9 @@ if (localStorage.getItem("user") !== null){
               
               <p class="ajout-descrip">jpg, png : 4mo max</p>
             </div>
-            <label class="ajout-label-titre">Titre</label>
-            <input class="ajout-input-titre" name="title" type="text"required>
-            <label class="ajout-label-category">Catégorie</label>
+            <label for="title"class="ajout-label-titre">Titre</label>
+            <input class="ajout-input-titre" name="title" type="text" required>
+            <label for="category" class="ajout-label-category">Catégorie</label>
             <select class="ajout-input-category" name="category" required>
               <option value=""></option>
               <option value="Objets">Objets</option>
@@ -319,22 +319,27 @@ if (localStorage.getItem("user") !== null){
     const btnAjoutProjet = document.querySelector(".ajout-btn");
   
     // je récupére mes inputs
-    const imageForm = formulaire.querySelector("#image_uploads");
-   
-   const blodImage = formulaire.querySelector(".image-upload");
+    //const imageForm = formulaire.querySelector("#image_uploads");
+    //const blodImage = formulaire.querySelector(".image-upload");
 
     const titreForm = formulaire.querySelector(".ajout-input-titre");
+    //const titre = titreForm.value;
     const categoryForm = formulaire.querySelector(".ajout-input-category");
 
-    //const cate = btoa(categoryForm);
-    
+    const cate = btoa(categoryForm);
+
+    const dataForm = new FormData(formulaire);
+    dataForm.set("title", titreForm.vaue);
+    dataForm.set("category", cate);
+
+   /* 
     const dataForm = new FormData()
 
     dataForm.append("image", imageForm.files[0], imageForm);
     dataForm.append("title", titreForm );
     //dataForm.append("category", categoryForm.value);
     dataForm.append("category", categoryForm);
-    
+    */
    /*
     function formdata (){
       const dataForm = new FormData(formulaire);
@@ -348,27 +353,27 @@ if (localStorage.getItem("user") !== null){
     // je soumet le formulaire
     btnAjoutProjet.addEventListener("click",async function(e){
       e.preventDefault();
-      console.log(blodImage)
 
+      //console.log(blodImage)
+      //console.log(titre)
+      //console.log(titreForm.value)
       //console.log(formdata)
       //console.log(cate)
-
-      console.log(imageForm)
-      console.log(imageForm.value)
-      console.log(typeof imageForm)
+      //console.log(imageForm)
+      //console.log(imageForm.value)
+      //console.log(typeof imageForm)
       
 /*
     let dataForm = new FormData();
     
     dataForm.append("image", imageForm, imageForm);
     dataForm.append("title", titreForm.value);
-    dataForm.append("category", categoryForm.value);
-     
+    dataForm.append("category", categoryForm.value);  
     console.log(Array.from(dataForm))
 */
 
 console.log(Array.from(dataForm))
-   /*  
+    /*
     await fetch('http://localhost:5678/api/works', {
       method: 'POST',
       headers: {

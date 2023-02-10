@@ -344,14 +344,13 @@ if (localStorage.getItem("user") !== null){
     await fetch('http://localhost:5678/api/works', {
       method: 'POST',
       headers: {
-                'Content-Type': 'multipart/form-data',
                 'Authorization' : `Bearer ${token}`
                 }, 
       body: dataForm,  
   })
-  .then((reponse) => reponse.json())
+  //.then((reponse) => reponse.json())
   
-  .then((data) => {console.log(data)});
+  //.then((data) => {console.log(data)});
 
   })
 

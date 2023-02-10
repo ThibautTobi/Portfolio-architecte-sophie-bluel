@@ -319,7 +319,7 @@ if (localStorage.getItem("user") !== null){
     //const btnAjoutProjet = document.querySelector(".ajout-btn");
 
     // je soumet le formulaire
-    formulaire.addEventListener("submit", function(e){
+    formulaire.addEventListener("submit", async function(e){
       e.preventDefault();
 
       const imageForm = formulaire.querySelector("#image_uploads");
@@ -330,11 +330,11 @@ if (localStorage.getItem("user") !== null){
 
       dataForm.append("image", imageForm.files[0], imageForm.files[0].name);
       dataForm.append("title", titreForm.value);
-      dataForm.append("category", categoryForm);
+      dataForm.append("category", categoryForm.value);
 
       console.log(Array.from(dataForm))
  
-    fetch('http://localhost:5678/api/works', {
+    await fetch('http://localhost:5678/api/works', {
       method: 'POST',
       headers: {
                 'Content-Type': 'multipart/form-data',
@@ -342,9 +342,9 @@ if (localStorage.getItem("user") !== null){
                 }, 
       body: dataForm,  
   })
-  .then((reponse) => reponse.json())
+  //.then((reponse) => reponse.json())
   
-  .then((data) => {console.log(data)});
+  //.then((data) => {console.log(data)});
 
   })
 

@@ -314,31 +314,49 @@ if (localStorage.getItem("user") !== null){
         });
     
     // publication de nouveau projets *************************************************************************
+    //je recupére mon formulaire et bouton submit
     const formulaire =divModale.querySelector("#ajout-form");
     const btnAjoutProjet = document.querySelector(".ajout-btn");
   
-    const imageForm = formulaire.querySelector("#image_uploads").files[0];
-    
-   const blodImage = formulaire.querySelector(".image-upload").src;
+    // je récupére mes inputs
+    const imageForm = formulaire.querySelector("#image_uploads");
+   
+   const blodImage = formulaire.querySelector(".image-upload");
 
-  
-  /*
     const titreForm = formulaire.querySelector(".ajout-input-titre");
     const categoryForm = formulaire.querySelector(".ajout-input-category");
-  */
-    
-    const dataForm = new FormData();
 
-    dataForm.append("image", blodImage, imageForm);
-    dataForm.append("title", titreForm.value);
-    dataForm.append("category", categoryForm.value);
+    //const cate = btoa(categoryForm);
     
-    
+    const dataForm = new FormData()
 
+    dataForm.append("image", imageForm.files[0], imageForm);
+    dataForm.append("title", titreForm );
+    //dataForm.append("category", categoryForm.value);
+    dataForm.append("category", categoryForm);
+    
+   /*
+    function formdata (){
+      const dataForm = new FormData(formulaire);
+
+      const image = dataForm.get("image");
+      const title = dataForm.get("titre");
+      const category = dataForm.get("category");
+    }
+      formdata();
+      */
     // je soumet le formulaire
     btnAjoutProjet.addEventListener("click",async function(e){
       e.preventDefault();
       console.log(blodImage)
+
+      //console.log(formdata)
+      //console.log(cate)
+
+      console.log(imageForm)
+      console.log(imageForm.value)
+      console.log(typeof imageForm)
+      
 /*
     let dataForm = new FormData();
     
@@ -348,7 +366,9 @@ if (localStorage.getItem("user") !== null){
      
     console.log(Array.from(dataForm))
 */
-      
+
+console.log(Array.from(dataForm))
+   /*  
     await fetch('http://localhost:5678/api/works', {
       method: 'POST',
       headers: {
@@ -361,7 +381,7 @@ if (localStorage.getItem("user") !== null){
   .then((reponse) => reponse.json())
   
   .then((data) => {console.log(data)});
-
+*/
   })
 
 

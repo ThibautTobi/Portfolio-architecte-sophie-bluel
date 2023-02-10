@@ -250,6 +250,11 @@ if (localStorage.getItem("user") !== null){
   // j'appel la fonction
   suppAllProjets();
 
+  //je recupére mes category
+  const reponseCategories = await fetch("http://localhost:5678/api/categories");
+  const categories = await  reponseCategories.json(); 
+  console.log(categories)
+  //`${}`
     // modale ajouter nouveaux projets , je remplace le innerHTML
     function modaleAjout (){
       divModale.addEventListener("click",function (e){e.stopPropagation()});
@@ -262,28 +267,30 @@ if (localStorage.getItem("user") !== null){
             <button class="nav-close">X</button>
           </div>
           <h3 class="ajout-titre">Ajout photo</h3>
+
           <form method="POST" enctype="multipart/form-data" id="ajout-form">
             <div class="ajout-photo">
-            
               <div class="ajout-img">
                 <img class="image-upload" src="#" alt="image">
                 <i class="fa-thin fa-image image-icone"></i>
               </div>
-
               <label for="image_uploads" class="ajout-photo-btn">+ Ajouter photo</label>
               <input type="file" id="image_uploads" name="image" accept=".jpg, .png" size="4000" required>
               
               <p class="ajout-descrip">jpg, png : 4mo max</p>
             </div>
+
             <label for="title"class="ajout-label-titre">Titre</label>
             <input class="ajout-input-titre" name="title" type="text" required>
+
             <label for="category" class="ajout-label-category">Catégorie</label>
             <select class="ajout-input-category" name="category" required>
               <option value=""></option>
-              <option value="Objets">Objets</option>
-              <option value="Appartements">Appartements</option>
-              <option value="Hôtels & restaurants">Hôtels & restaurants</option>
+              <option value="${categories[0].id}" >Objets</option>  
+              <option value="${categories[1].id}">Appartements</option>
+              <option value="${categories[2].id}">Hôtels & restaurants</option>
             </select>
+
             <div class="ajout-ligne"></div>
             <button type="submit" class="ajout-btn">Valider</button>
           </form>`
@@ -342,9 +349,9 @@ if (localStorage.getItem("user") !== null){
                 }, 
       body: dataForm,  
   })
-  //.then((reponse) => reponse.json())
+  .then((reponse) => reponse.json())
   
-  //.then((data) => {console.log(data)});
+  .then((data) => {console.log(data)});
 
   })
 

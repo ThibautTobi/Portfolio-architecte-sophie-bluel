@@ -44,7 +44,6 @@ const projet = await reponseProjet.json();
 const projetSet = new Set(projet)
 const projets = Array.from(projetSet)
 
-
 // je récupére les node list
 
 let class1 = document.querySelectorAll(".class-1")

@@ -209,9 +209,7 @@ footer nav ul {
 	margin: 2em
 }
 /******************************** page de connection ********************************/
-.back_color{
-	background-color: #E5E5E5;
-}
+
 #form_connection{
 	display: flex;
 	flex-direction: column;

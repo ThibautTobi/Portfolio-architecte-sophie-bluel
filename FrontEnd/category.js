@@ -2,7 +2,6 @@
 /****** création dynamique des boutons filtres ******/
 
 // je créé une div pour inséré les boutons de filtrage des projets
-
     const titre = document.querySelector(".titre_projet");
     const newDiv = document.createElement("div");
     titre.appendChild(newDiv);
@@ -33,7 +32,6 @@
     buttonHotels.setAttribute("value",3)
     
 //je récupére les donnés categories du serveur et enregistre dans const categories
-
 const reponseCategories = await fetch("http://localhost:5678/api/categories");
 const categories = await  reponseCategories.json(); 
 
@@ -45,13 +43,11 @@ const projetSet = new Set(projet)
 const projets = Array.from(projetSet)
 
 // je récupére les node list
-
 let class1 = document.querySelectorAll(".class-1")
 let class2 = document.querySelectorAll(".class-2")
 let class3 = document.querySelectorAll(".class-3")
 
 // je récupére les value de mes boutons
-
 let valueTous = buttonTous.value
 let valueObjet = buttonObjets.value
 let valueAppart = buttonAppart.value
@@ -66,15 +62,13 @@ buttonTous.addEventListener('click', function (e) {
 
             if (listCat !== valueTous){
                 for( let i = 0 ; i < class1.length ; i++){
-                    class1[i].style.display ="block";}
+                    class1[i].parentNode.style.display ="block";}
                 for( let i = 0 ; i < class2.length ; i++){
-                    class2[i].style.display ="block";}
+                    class2[i].parentNode.style.display ="block";}
                 for( let i = 0 ; i < class3.length ; i++){
-                    class3[i].style.display ="block";
+                    class3[i].parentNode.style.display ="block";
                 }}}
-
 });
-
 // bouton objets
 buttonObjets.addEventListener('click', function (e) {
     e.preventDefault();
@@ -83,17 +77,16 @@ buttonObjets.addEventListener('click', function (e) {
 
             if (listCat == valueObjet){
                 for( let i = 0 ; i < class1.length ; i++){
-                    class1[i].style.display ="block";}               
+                    class1[i].parentNode.style.display ="block";}               
             }
             else{
                 for( let i = 0 ; i < class2.length ; i++){
-                    class2[i].style.display ="none";}
+                    class2[i].parentNode.style.display ="none";}
                 for( let i = 0 ; i < class3.length ; i++){
-                    class3[i].style.display ="none";
+                    class3[i].parentNode.style.display ="none";
                 }
             }}
 });
-
 // bouton appart
 buttonAppart.addEventListener('click', function (e) {
     e.preventDefault();
@@ -102,17 +95,16 @@ buttonAppart.addEventListener('click', function (e) {
 
             if (listCat == valueAppart){
                 for( let i = 0 ; i < class2.length ; i++){
-                    class2[i].style.display ="block";}            
+                    class2[i].parentNode.style.display ="block";}            
             }
             else{
                 for( let i = 0 ; i < class1.length ; i++){
-                    class1[i].style.display ="none";}
+                    class1[i].parentNode.style.display ="none";}
                 for( let i = 0 ; i < class3.length ; i++){
-                class3[i].style.display ="none";
+                class3[i].parentNode.style.display ="none";
                 }        
             }}
 });
-
 //bouton hotels et restaurants
 buttonHotels.addEventListener('click', function (e) {
     e.preventDefault();
@@ -121,14 +113,13 @@ buttonHotels.addEventListener('click', function (e) {
     
             if (listCat == valueHotel){
                 for( let i = 0 ; i < class3.length ; i++){
-                class3[i].style.display ="block";
+                class3[i].parentNode.style.display ="block";
             }}
             else{
                 for( let i = 0 ; i < class1.length ; i++){
-                    class1[i].style.display ="none";}
+                    class1[i].parentNode.style.display ="none";}
                 for( let i = 0 ; i < class2.length ; i++){
-                    class2[i].style.display ="none";
+                    class2[i].parentNode.style.display ="none";
                 }         
             }}
 });
-

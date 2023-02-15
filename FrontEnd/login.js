@@ -2,12 +2,10 @@
 const btnConnect = document.querySelector(".btn_connection");
 
 const inputEmail =  document.getElementById("email");
-
 const inputPass = document.getElementById("password");
 
     btnConnect.addEventListener("click",function(e){
         e.preventDefault();
-
         let inputLogin = {
                             email : inputEmail.value,
                             password : inputPass.value,
@@ -15,7 +13,6 @@ const inputPass = document.getElementById("password");
         const chargeUtile = JSON.stringify(inputLogin);
 
         try{
-
             fetch("http://localhost:5678/api/users/login",
             {
                 method : 'POST',
@@ -36,7 +33,7 @@ const inputPass = document.getElementById("password");
                             }
             })
             .then(data =>   {localStorage.setItem("user",JSON.stringify(data))
-                            location.href="http://localhost:5500/Portfolio-architecte-sophie-bluel/FrontEnd/"
+                            location.href="index.html"
             })
         }      
         catch   

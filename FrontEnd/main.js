@@ -9,21 +9,25 @@ const projets = await reponseProjet.json();
 document.querySelector(".gallery").innerHTML = '';
 
 // je créé une boucle pour incrémenter tous les projets
-
+function generate () {
 for(let i in projets){
     let url = projets[i].imageUrl;
     let title = projets[i].title;
-    let id = projets[i].categoryId;              
+    let catId = projets[i].categoryId; 
+    let id = projets[i].id;             
     document.querySelector(".gallery").innerHTML +=
-    
-        `<div class=class-${id}>
-            <figure>
-                <img crossorigin="anonymous"  src=${url} alt="${title}}">
-                <figcaption>${title}</figcaption>
-            </figure>
-        </div>` 
-};
-
+        ` <div id="${id}">
+            <div class=class-${catId}>
+                <figure>
+                    <img crossorigin="anonymous"  src=${url} alt="${title}}">
+                    <figcaption>${title}</figcaption>
+                </figure>
+            </div>
+          </div>
+        ` 
+}};
+generate();
+console.log(generate)
 /****************************** espace Administrateur  ****************************************/
 // verifier si il y a un localstorage et si oui faire apparaitre
 
@@ -117,7 +121,7 @@ if (localStorage.getItem("user") !== null){
       let id = projets[i].id;              
       document.querySelector(".modale-galery").innerHTML +=
           `
-          <div class="mini-gallery">
+          <div class="mini-gallery" id="${id}">
               <div id="${id}">
                   <div class="move-img">
                     <i class="fa-solid fa-arrows-up-down-left-right fleche"></i>
@@ -162,11 +166,11 @@ if (localStorage.getItem("user") !== null){
       modaleContainer.style.visibility= "hidden";
     };
    
-  // je regroupe les boutons modifier pour ouvrir modale
-  const modif = document.querySelectorAll('.a-titre ,.a-intro ,.a-photo');
+  // je trouve le bouton modifier pour ouvrir modale
+  const modif = document.querySelector('.a-titre');
 
   // j'ouvre la modal en cliquant sur les boutons modifier 
-  modif.forEach(btn => btn.addEventListener('click', open));
+  modif.addEventListener('click', open);
 
   // je ferme la modale avec la croix
   const btnCloseModale = document.querySelector(".btn-close");
@@ -181,80 +185,71 @@ if (localStorage.getItem("user") !== null){
 
   modaleContainer.addEventListener("click", clickContainer);
   // je supprime un élément en cliquant sur l'icone de la poubelle
+
   function suppUnProjet (){
   const suppProjet = document.querySelectorAll(".poubelle");
 
-  suppProjet.forEach(a => a.addEventListener("click",function(e){
+  suppProjet.forEach(a => a.addEventListener("click",async function(e){
     e.preventDefault;
-    let id = a.getAttribute("id");
+    
+    let id = a.getAttribute("id");   
     let divElementId = document.getElementById(`${id}`);
-    divElementId.parentNode.remove();
+    divElementId.remove();
 
-    fetch (`http://localhost:5678/api/works/${id}`, {
+    await fetch (`http://localhost:5678/api/works/${id}`, {
         method : 'DELETE',
         headers :{
           'content-type' : 'application/json',
           'Authorization' : `Bearer ${token}`
-        }}
-        /*
-        .then((res) => {res.json()})
-          
-        .then(response =>{
-          if (response.ok)
-          { 
-            
-            alert("la suppression du projet a réussi"),
-            Promise.resolve(res.json())
-          }
-        else {
-          alert("Erreur le projet n'a pas été supprimer")
-        }})  
-        */
-  )}
-  ));
+        }})
+        .then((reponse) => { if (reponse.ok){
+          let removeMini = document.getElementById(`${id}`);
+          removeMini.remove();
+          console.log("la suppression a réussi")
+        }else{
+          console.log("la suppression n'a pas réussi")
+        }})     
+    })
+  );
   };
-
+  // j'appel la fonction
   suppUnProjet();
 
   // suppression de toutes la gallerie avec le bouton supprimer la galerie
-
   function suppAllProjets (){
   const suppAll = document.querySelector(".supp-gallery");
-
-  suppAll.addEventListener("click",function(e){
+  suppAll.addEventListener("click", async function(e){
     e.preventDefault;
+
+    const divElementGallery = document.querySelector(".gallery");
+    divElementGallery.remove();
+    const divElementMiniGallery = document.querySelectorAll(".mini-gallery");
 
     for (let i in projets){
       let id = projets[i].id;
 
-      fetch (`http://localhost:5678/api/works/${id}`, {
+      await fetch (`http://localhost:5678/api/works/${id}`, {
           method : 'DELETE',
           headers :{
             'content-type' : 'application/json',
-            'Authorization' : `Bearer ${token}`,
+            'Authorization' : `Bearer ${token}`
           }})
-    /*
-          .then(res => {
-            if (res.ok)
-            {alert("la suppression des projets a réussi")
-            console.log("sa marche")
-            }
-          else {
-            alert("Erreur les projets n'ont pas été supprimer")
-            console.log("sa ne marche pas")
-          }})  */
+          .then((reponse) => {if (reponse.ok){
+            divElementMiniGallery.forEach(element => element.remove());
+            console.log("la suppression a réussi")
+          }else{
+            console.log("la suppression n'a pas réussi")
+          }})
         }
   });
   };
-
   // j'appel la fonction
   suppAllProjets();
 
-  //je recupére mes category
+  //je recupére mes category pour les assigner a l'input select
   const reponseCategories = await fetch("http://localhost:5678/api/categories");
   const categories = await  reponseCategories.json(); 
-  console.log(categories)
-  //`${}`
+  
     // modale ajouter nouveaux projets , je remplace le innerHTML
     function modaleAjout (){
       divModale.addEventListener("click",function (e){e.stopPropagation()});
@@ -267,30 +262,25 @@ if (localStorage.getItem("user") !== null){
             <button class="nav-close">X</button>
           </div>
           <h3 class="ajout-titre">Ajout photo</h3>
-
           <form method="POST" enctype="multipart/form-data" id="ajout-form">
             <div class="ajout-photo">
               <div class="ajout-img">
                 <img class="image-upload" src="#" alt="image">
-                <i class="fa-thin fa-image image-icone"></i>
+                <i class="fa-thin fa-image"></i>
               </div>
               <label for="image_uploads" class="ajout-photo-btn">+ Ajouter photo</label>
-              <input type="file" id="image_uploads" name="image" accept=".jpg, .png" size="4000" required>
-              
+              <input type="file" id="image_uploads" name="image" accept=".jpg, .png">
               <p class="ajout-descrip">jpg, png : 4mo max</p>
             </div>
-
             <label for="title"class="ajout-label-titre">Titre</label>
-            <input class="ajout-input-titre" name="title" type="text" required>
-
+            <input class="ajout-input-titre" name="title" type="text">
             <label for="category" class="ajout-label-category">Catégorie</label>
-            <select class="ajout-input-category" name="category" required>
+            <select class="ajout-input-category" name="category">
               <option value=""></option>
               <option value="${categories[0].id}" >Objets</option>  
               <option value="${categories[1].id}">Appartements</option>
               <option value="${categories[2].id}">Hôtels & restaurants</option>
             </select>
-
             <div class="ajout-ligne"></div>
             <button type="submit" class="ajout-btn">Valider</button>
           </form>`
@@ -314,33 +304,41 @@ if (localStorage.getItem("user") !== null){
           descriptifPhoto.style.visibility = "hidden";
           btnAjoutPhotoForm.style.visibility = "hidden";
         }}
-
         btnAjoutPhoto.addEventListener("change", function (e){
           e.preventDefault();
           preview(e)
         });
     
-    // publication de nouveau projets *************************************************************************
+    // publication de nouveau projets 
+
     //je recupére mon formulaire et bouton submit
     const formulaire = divModale.querySelector("#ajout-form");
-    //const btnAjoutProjet = document.querySelector(".ajout-btn");
 
     // je soumet le formulaire
     formulaire.addEventListener("submit", async function(e){
       e.preventDefault();
-
+    
       const imageForm = formulaire.querySelector("#image_uploads");
       const titreForm = formulaire.querySelector(".ajout-input-titre");
       const categoryForm = formulaire.querySelector(".ajout-input-category");
 
+    //verifier si les 3 entrés sont rempli
+      if(imageForm.value == "" ){
+        alert("le champ image n'est pas rempli");
+      }
+      else if( titreForm.value == ""){
+        alert("le champ titre n'est pas rempli");
+      }
+      else if(categoryForm.value == ""){
+        alert("le champ categorie n'est pas rempli");
+      }
+      else{ 
       const dataForm = new FormData();
 
       dataForm.append("image", imageForm.files[0], imageForm.files[0].name);
       dataForm.append("title", titreForm.value);
       dataForm.append("category", categoryForm.value);
 
-      console.log(Array.from(dataForm))
- 
     await fetch('http://localhost:5678/api/works', {
       method: 'POST',
       headers: {
@@ -348,29 +346,28 @@ if (localStorage.getItem("user") !== null){
                 }, 
       body: dataForm,  
   })
-  //.then((reponse) => reponse.json())
-  
-  //.then((data) => {console.log(data)});
-
+  .then((reponse) => reponse.json())
+  .then((data)  => { 
+ 
+      let id = data.id;
+      let url = data.imageUrl;
+      let title = data.title;
+      let catId = data.categoryId; 
+      let gallery = document.querySelector(".gallery");
+      let inner = document.createElement("div");
+      gallery.appendChild(inner);
+      inner.innerHTML =
+    ` <div id="${id}">
+        <div class=class-${catId}>
+            <figure>
+                <img crossorigin="anonymous"  src=${url} alt="${title}}">
+                <figcaption>${title}</figcaption>
+            </figure>
+        </div>
+      </div>
+    ` })
+}
   })
-
-
-    /*                                                   
-    await fetch('http://localhost:5678/api/works', {
-        method: 'POST',
-        headers: {
-                  //'accept': 'application/json',
-                  
-                  'Authorization' : `Bearer ${token}`,
-                  }, 
-        body: new FormData(formulaire), 
-    })
-    .then((reponse) => reponse.json())
-    .then((data) => {console.log(data)});
-
-    */
-
-
     //retour en arriére si je click sur la fleche
       const retourFleche = document.querySelector(".fleche-retour");
       
@@ -391,4 +388,3 @@ if (localStorage.getItem("user") !== null){
   btnAjout.addEventListener("click", modaleAjout);
 
 }; // fin de l'espace administrateur
-

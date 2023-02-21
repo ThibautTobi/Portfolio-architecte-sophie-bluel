@@ -9,7 +9,6 @@ const projets = await reponseProjet.json();
 document.querySelector(".gallery").innerHTML = '';
 
 // je créé une boucle pour incrémenter tous les projets
-function generate () {
 for(let i in projets){
     let url = projets[i].imageUrl;
     let title = projets[i].title;
@@ -25,9 +24,8 @@ for(let i in projets){
             </div>
           </div>
         ` 
-}};
-generate();
-console.log(generate)
+}
+
 /****************************** espace Administrateur  ****************************************/
 // verifier si il y a un localstorage et si oui faire apparaitre
 
@@ -147,6 +145,7 @@ if (localStorage.getItem("user") !== null){
       miniFleche();
     };
   }
+
   //j'appelle la function miniProjet
   miniProjet();
 
@@ -187,15 +186,25 @@ if (localStorage.getItem("user") !== null){
   // je supprime un élément en cliquant sur l'icone de la poubelle
 
   function suppUnProjet (){
-  const suppProjet = document.querySelectorAll(".poubelle");
+    const suppProjet = document.querySelectorAll(".poubelle");
 
-  suppProjet.forEach(a => a.addEventListener("click",async function(e){
+    suppProjet.forEach(a => a.addEventListener("click",async function(e){
     e.preventDefault;
     
     let id = a.getAttribute("id");   
     let divElementId = document.getElementById(`${id}`);
     divElementId.remove();
-
+  
+      function removeValue (value, index, arr) {  
+        if (value.id == id) {
+            arr.splice(index, 1);
+            return true;
+          }
+          return false;
+          }
+          const x = projets.filter(removeValue);
+          console.log(x)
+      
     await fetch (`http://localhost:5678/api/works/${id}`, {
         method : 'DELETE',
         headers :{
@@ -205,42 +214,54 @@ if (localStorage.getItem("user") !== null){
         .then((reponse) => { if (reponse.ok){
           let removeMini = document.getElementById(`${id}`);
           removeMini.remove();
-          console.log("la suppression a réussi")
-        }else{
+          removeValue(projets);
+      
+            console.log("la suppression a réussi")
+            }
+        else{
           console.log("la suppression n'a pas réussi")
-        }})     
-    })
-  );
+            }})
+    }));
   };
   // j'appel la fonction
   suppUnProjet();
 
   // suppression de toutes la gallerie avec le bouton supprimer la galerie
   function suppAllProjets (){
-  const suppAll = document.querySelector(".supp-gallery");
-  suppAll.addEventListener("click", async function(e){
-    e.preventDefault;
+    const suppAll = document.querySelector(".supp-gallery");
+      suppAll.addEventListener("click", async function(e){
+      e.preventDefault;
 
     const divElementGallery = document.querySelector(".gallery");
-    divElementGallery.remove();
+    const divElement = divElementGallery.querySelectorAll("div");
+
     const divElementMiniGallery = document.querySelectorAll(".mini-gallery");
 
     for (let i in projets){
       let id = projets[i].id;
-
+  
       await fetch (`http://localhost:5678/api/works/${id}`, {
           method : 'DELETE',
           headers :{
             'content-type' : 'application/json',
             'Authorization' : `Bearer ${token}`
           }})
-          .then((reponse) => {if (reponse.ok){
-            divElementMiniGallery.forEach(element => element.remove());
+          .then((reponse) => {
+            if (reponse.ok){
+              divElementMiniGallery.forEach(element => element.remove());
+              divElement.forEach(element => element.remove());
+            
+            do {
+              projets.splice(0,1);
+              }
+            while (projets.length > 0);
+            
             console.log("la suppression a réussi")
-          }else{
+              }
+            else{
             console.log("la suppression n'a pas réussi")
-          }})
-        }
+            }})
+    }
   });
   };
   // j'appel la fonction
@@ -306,81 +327,92 @@ if (localStorage.getItem("user") !== null){
         }}
         btnAjoutPhoto.addEventListener("change", function (e){
           e.preventDefault();
-          preview(e)
+          preview(e);
         });
-    
-    // publication de nouveau projets 
+            /***************  publication de nouveau projets ***************/
 
-    //je recupére mon formulaire et bouton submit
-    const formulaire = divModale.querySelector("#ajout-form");
+            //je recupére mon formulaire et bouton submit
+            const formulaire = divModale.querySelector("#ajout-form");
 
-    // je soumet le formulaire
-    formulaire.addEventListener("submit", async function(e){
-      e.preventDefault();
-    
-      const imageForm = formulaire.querySelector("#image_uploads");
-      const titreForm = formulaire.querySelector(".ajout-input-titre");
-      const categoryForm = formulaire.querySelector(".ajout-input-category");
+            // je soumet le formulaire
+            formulaire.addEventListener("submit", async function(e){
+              e.preventDefault();
+            
+              const imageForm = formulaire.querySelector("#image_uploads");
+              const titreForm = formulaire.querySelector(".ajout-input-titre");
+              const categoryForm = formulaire.querySelector(".ajout-input-category");
 
-    //verifier si les 3 entrés sont rempli
-      if(imageForm.value == "" ){
-        alert("le champ image n'est pas rempli");
+            //verifier si les 3 entrés sont rempli
+              if(imageForm.value == "" ){
+                alert("le champ image n'est pas rempli");
+              }
+              else if( titreForm.value == ""){
+                alert("le champ titre n'est pas rempli");
+              }
+              else if(categoryForm.value == ""){
+                alert("le champ categorie n'est pas rempli");
+              }
+              else{ 
+              const dataForm = new FormData();
+
+              dataForm.append("image", imageForm.files[0], imageForm.files[0].name);
+              dataForm.append("title", titreForm.value);
+              dataForm.append("category", categoryForm.value);
+
+              //envoie de la requete avec le formdata et ajout de la réponse en dynamique sans recharger la page
+              await fetch('http://localhost:5678/api/works', {
+              method: 'POST',
+              headers: {
+                        'Authorization' : `Bearer ${token}`
+                        }, 
+              body: dataForm,  
+          })
+          .then((reponse) => reponse.json())
+          .then((data)  => { 
+              let id = data.id;
+              let url = data.imageUrl;
+              let title = data.title;
+              let catId = data.categoryId; 
+              let gallery = document.querySelector(".gallery");
+              let inner = document.createElement("div");
+              gallery.appendChild(inner);
+              inner.innerHTML =
+            ` <div id="${id}">
+                <div class=class-${catId}>
+                    <figure>
+                        <img crossorigin="anonymous"  src=${url} alt="${title}}">
+                        <figcaption>${title}</figcaption>
+                    </figure>
+                </div>
+              </div>
+            `
+          projets.push(data)
+        })
+
+      //remise a zero du formulaire et fermeture de la modale aprés un ajout
+      formulaire.reset();
+      let imageUpload = document.querySelector(".image-upload");
+      imageUpload.src='';
+      imageUpload.remove();
+      retour();
+      document.querySelector(".modale-container").style.visibility= "hidden";
       }
-      else if( titreForm.value == ""){
-        alert("le champ titre n'est pas rempli");
-      }
-      else if(categoryForm.value == ""){
-        alert("le champ categorie n'est pas rempli");
-      }
-      else{ 
-      const dataForm = new FormData();
 
-      dataForm.append("image", imageForm.files[0], imageForm.files[0].name);
-      dataForm.append("title", titreForm.value);
-      dataForm.append("category", categoryForm.value);
+        })
+      //retour en arriére si je click sur la fleche
+        const retourFleche = document.querySelector(".fleche-retour");
+        
+        function retour (e){
+          modale();
+          miniProjet();
+          suppUnProjet();
+          suppAllProjets();
+          document.querySelector(".btn-close").addEventListener("click",close);
+          document.querySelector(".btn-modale").addEventListener("click",modaleAjout);
+        };
 
-    await fetch('http://localhost:5678/api/works', {
-      method: 'POST',
-      headers: {
-                'Authorization' : `Bearer ${token}`
-                }, 
-      body: dataForm,  
-  })
-  .then((reponse) => reponse.json())
-  .then((data)  => { 
- 
-      let id = data.id;
-      let url = data.imageUrl;
-      let title = data.title;
-      let catId = data.categoryId; 
-      let gallery = document.querySelector(".gallery");
-      let inner = document.createElement("div");
-      gallery.appendChild(inner);
-      inner.innerHTML =
-    ` <div id="${id}">
-        <div class=class-${catId}>
-            <figure>
-                <img crossorigin="anonymous"  src=${url} alt="${title}}">
-                <figcaption>${title}</figcaption>
-            </figure>
-        </div>
-      </div>
-    ` })
-}
-  })
-    //retour en arriére si je click sur la fleche
-      const retourFleche = document.querySelector(".fleche-retour");
-      
-      retourFleche.addEventListener("click", function (e){
-        e.preventDefault();
-        modale();
-        miniProjet();
-        suppUnProjet();
-        suppAllProjets();
-        document.querySelector(".btn-close").addEventListener("click",close);
-        document.querySelector(".btn-modale").addEventListener("click",modaleAjout);
-      });
-      
+      retourFleche.addEventListener("click", retour);
+        
   };
   
   // click bouton ouvre la modale ajout de nouveaux projet

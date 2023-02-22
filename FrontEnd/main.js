@@ -188,7 +188,7 @@ if (localStorage.getItem("user") !== null){
   function suppUnProjet (){
     const suppProjet = document.querySelectorAll(".poubelle");
 
-    suppProjet.forEach(a => a.addEventListener("click",async function(e){
+    suppProjet.forEach(a => a.addEventListener("click", function(e){
     e.preventDefault;
     
     let id = a.getAttribute("id");   
@@ -205,7 +205,7 @@ if (localStorage.getItem("user") !== null){
           const x = projets.filter(removeValue);
           console.log(x)
       
-    await fetch (`http://localhost:5678/api/works/${id}`, {
+      fetch (`http://localhost:5678/api/works/${id}`, {
         method : 'DELETE',
         headers :{
           'content-type' : 'application/json',
@@ -229,7 +229,7 @@ if (localStorage.getItem("user") !== null){
   // suppression de toutes la gallerie avec le bouton supprimer la galerie
   function suppAllProjets (){
     const suppAll = document.querySelector(".supp-gallery");
-      suppAll.addEventListener("click", async function(e){
+      suppAll.addEventListener("click", function(e){
       e.preventDefault;
 
     const divElementGallery = document.querySelector(".gallery");
@@ -239,8 +239,8 @@ if (localStorage.getItem("user") !== null){
 
     for (let i in projets){
       let id = projets[i].id;
-  
-      await fetch (`http://localhost:5678/api/works/${id}`, {
+
+        fetch (`http://localhost:5678/api/works/${id}`, {
           method : 'DELETE',
           headers :{
             'content-type' : 'application/json',
@@ -250,12 +250,9 @@ if (localStorage.getItem("user") !== null){
             if (reponse.ok){
               divElementMiniGallery.forEach(element => element.remove());
               divElement.forEach(element => element.remove());
-            
-            do {
+           
               projets.splice(0,1);
-              }
-            while (projets.length > 0);
-            
+             
             console.log("la suppression a réussi")
               }
             else{
